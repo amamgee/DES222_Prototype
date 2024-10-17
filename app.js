@@ -21,12 +21,20 @@ navigator.geolocation.getCurrentPosition(function(position) {
 
 // Function to fetch recipes from Spoonacular API
 function fetchRecipes(mealType, latitude, longitude) {
+    console.log(`Fetching recipes for meal type: ${mealType}`); // Debug log
     fetch(`https://api.spoonacular.com/recipes/complexSearch?type=${mealType}&apiKey=${apiKey}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`); // Handle non-OK responses
+            }
+            return response.json();
+        })
         .then(data => {
             const recipeList = document.getElementById('recipe-list');
             recipeList.innerHTML = ''; // Clear previous recipes
-            if (data.results.length > 0) {
+
+            // Check if results are present
+            if (data.results && data.results.length > 0) {
                 data.results.forEach(recipe => {
                     const listItem = document.createElement('li');
                     listItem.textContent = recipe.title;
@@ -37,17 +45,30 @@ function fetchRecipes(mealType, latitude, longitude) {
                 recipeList.innerHTML = '<li>No recipes found.</li>'; // Handle no results
             }
         })
-        .catch(error => console.error('Error fetching recipes:', error));
+        .catch(error => {
+            console.error('Error fetching recipes:', error);
+            const recipeList = document.getElementById('recipe-list');
+            recipeList.innerHTML = '<li>Error fetching recipes. Please try again later.</li>'; // Handle fetch error
+        });
 }
 
 // Function to fetch detailed recipe information
 function fetchRecipeDetails(recipeId) {
     fetch(`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${apiKey}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`); // Handle non-OK responses
+            }
+            return response.json();
+        })
         .then(recipe => {
             displayRecipeDetails(recipe);
         })
-        .catch(error => console.error('Error fetching recipe details:', error));
+        .catch(error => {
+            console.error('Error fetching recipe details:', error);
+            const detailsSection = document.getElementById('recipe-details');
+            detailsSection.innerHTML = '<p>Error fetching recipe details. Please try again later.</p>'; // Handle fetch error
+        });
 }
 
 // Function to display recipe details when a recipe is selected
