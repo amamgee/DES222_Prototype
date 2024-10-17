@@ -32,18 +32,6 @@ function fetchRecipes(mealType) {
             });
         })
         .catch(error => console.error('Error fetching recipes:', error));
-}
-
-// Device orientation event listener
-window.addEventListener('deviceorientation', function(event) {
-    let gamma = event.gamma; // Rotation around Y-axis (tilt left/right)
-
-    // Update meal type based on device tilt
-    if (gamma > 45) {
-        fetchRecipes('breakfast');
-    } else if (gamma < -45) {
-        fetchRecipes('dinner');
-    } else {
-        fetchRecipes('lunch');
-    }
 });
+
+// Note: Device orientation event listener has been removed.
