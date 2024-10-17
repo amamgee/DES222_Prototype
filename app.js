@@ -1,5 +1,47 @@
 const apiKey = '361e5a4d93f34759a79f3c93beb6c2e1'; // Replace with your Spoonacular API key
 
+// Mock data to simulate the API response
+const mockData = {
+    results: [
+        {
+            id: 1,
+            title: 'Spaghetti Carbonara',
+            extendedIngredients: [
+                { original: 'spaghetti' },
+                { original: 'egg' },
+                { original: 'Parmesan cheese' },
+                { original: 'pancetta' },
+                { original: 'black pepper' },
+            ],
+            instructions: 'Cook spaghetti. Fry pancetta. Mix with eggs and cheese.'
+        },
+        {
+            id: 2,
+            title: 'Caprese Salad',
+            extendedIngredients: [
+                { original: 'mozzarella cheese' },
+                { original: 'tomatoes' },
+                { original: 'fresh basil' },
+                { original: 'olive oil' },
+                { original: 'balsamic vinegar' },
+            ],
+            instructions: 'Layer mozzarella, tomatoes, and basil. Drizzle with olive oil and balsamic vinegar.'
+        },
+        {
+            id: 3,
+            title: 'Chicken Tikka Masala',
+            extendedIngredients: [
+                { original: 'chicken' },
+                { original: 'yogurt' },
+                { original: 'garam masala' },
+                { original: 'tomato sauce' },
+                { original: 'cream' },
+            ],
+            instructions: 'Marinate chicken, then cook with spices and sauce.'
+        }
+    ]
+};
+
 // Get user's current geolocation
 navigator.geolocation.getCurrentPosition(function(position) {
     let latitude = position.coords.latitude;
@@ -15,60 +57,42 @@ navigator.geolocation.getCurrentPosition(function(position) {
     if (hours < 12) mealType = 'breakfast';
     else if (hours >= 12 && hours < 17) mealType = 'lunch';
 
-    // Fetch recipes with latitude and longitude
+    // Use mock data instead of API call
     fetchRecipes(mealType, latitude, longitude);
 });
 
-// Function to fetch recipes from Spoonacular API
+// Function to fetch recipes from Spoonacular API or use mock data
 function fetchRecipes(mealType, latitude, longitude) {
     console.log(`Fetching recipes for meal type: ${mealType}`); // Debug log
-    fetch(`https://api.spoonacular.com/recipes/complexSearch?type=${mealType}&apiKey=${apiKey}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`); // Handle non-OK responses
-            }
-            return response.json();
-        })
-        .then(data => {
-            const recipeList = document.getElementById('recipe-list');
-            recipeList.innerHTML = ''; // Clear previous recipes
+    
+    // Use mock data for testing instead of an API call
+    const data = mockData; // Replace this with the API fetch when you're ready
 
-            // Check if results are present
-            if (data.results && data.results.length > 0) {
-                data.results.forEach(recipe => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = recipe.title;
-                    listItem.onclick = () => fetchRecipeDetails(recipe.id); // Call to fetch details on click
-                    recipeList.appendChild(listItem);
-                });
-            } else {
-                recipeList.innerHTML = '<li>No recipes found.</li>'; // Handle no results
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching recipes:', error);
-            const recipeList = document.getElementById('recipe-list');
-            recipeList.innerHTML = '<li>Error fetching recipes. Please try again later.</li>'; // Handle fetch error
+    const recipeList = document.getElementById('recipe-list');
+    recipeList.innerHTML = ''; // Clear previous recipes
+
+    // Check if results are present
+    if (data.results && data.results.length > 0) {
+        data.results.forEach(recipe => {
+            const listItem = document.createElement('li');
+            listItem.textContent = recipe.title;
+            listItem.onclick = () => fetchRecipeDetails(recipe.id); // Call to fetch details on click
+            recipeList.appendChild(listItem);
         });
+    } else {
+        recipeList.innerHTML = '<li>No recipes found.</li>'; // Handle no results
+    }
 }
 
 // Function to fetch detailed recipe information
 function fetchRecipeDetails(recipeId) {
-    fetch(`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${apiKey}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`); // Handle non-OK responses
-            }
-            return response.json();
-        })
-        .then(recipe => {
-            displayRecipeDetails(recipe);
-        })
-        .catch(error => {
-            console.error('Error fetching recipe details:', error);
-            const detailsSection = document.getElementById('recipe-details');
-            detailsSection.innerHTML = '<p>Error fetching recipe details. Please try again later.</p>'; // Handle fetch error
-        });
+    // Find the recipe in mock data by ID
+    const recipe = mockData.results.find(r => r.id === recipeId);
+    if (recipe) {
+        displayRecipeDetails(recipe);
+    } else {
+        console.error('Recipe not found:', recipeId);
+    }
 }
 
 // Function to display recipe details when a recipe is selected
