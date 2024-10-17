@@ -1,36 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orientation Prototype</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #f0f0f0;
-    }
-    #rotating-element {
-      width: 150px;
-      height: 150px;
-      background-color: #3498db;
-      border-radius: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-size: 20px;
-      text-align: center;
-      transition: transform 0.1s ease;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Context-Aware Recipe App</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="rotating-element">Rotate Me!</div>
+    <div class="container">
+        <h1>Context-Aware Recipe App</h1>
+        
+        <!-- Section for showing geolocation -->
+        <div id="location">
+            <h2>Your Location:</h2>
+            <p>Latitude: <span id="latitude"></span></p>
+            <p>Longitude: <span id="longitude"></span></p>
+        </div>
+        
+        <!-- Section for recipe suggestions -->
+        <div id="recipes">
+            <h2>Recipe Suggestions:</h2>
+            <ul id="recipe-list"></ul>
+        </div>
 
-  <script src="orientation.js"></script>
+        <!-- Section for orientation-based interactions -->
+        <div id="orientation">
+            <h2>Device Orientation:</h2>
+            <p>Tilt your phone to get new recipe suggestions!</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
