@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orientation Prototype</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    #rotating-element {
+      width: 150px;
+      height: 150px;
+      background-color: #3498db;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 20px;
+      text-align: center;
+      transition: transform 0.1s ease;
+    }
+  </style>
+</head>
+<body>
+  <div id="rotating-element">Rotate Me!</div>
+
+  <script src="orientation.js"></script>
+</body>
+</html>
