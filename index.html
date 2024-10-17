@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Context-Aware Recipe App</title>
+    <link rel="stylesheet" href="style.css">
     <script src="app.js" defer></script> <!-- Link to your JavaScript file -->
 </head>
 <body>
-    <h1>Context-Aware Recipe App</h1>
-    <h2>Your Location:</h2>
-    <p>Latitude: <span id="latitude"></span></p>
-    <p>Longitude: <span id="longitude"></span></p>
-
-    <h2>Recipe Suggestions:</h2>
-    <ul id="recipe-list"></ul>
-
-    <h2>Device Orientation:</h2>
-    <p>Tilt your phone to get new recipe suggestions!</p>
+    <div class="container">
+        <h2>Context-Aware Recipe App</h2>
+        <div>Your Location:</div>
+        <div>Latitude: <span id="latitude"></span></div>
+        <div>Longitude: <span id="longitude"></span></div>
+        <h3>Recipe Suggestions:</h3>
+        <ul id="recipe-list"></ul>
+        <div id="recipe-details"></div>
+    </div>
 </body>
 </html>
