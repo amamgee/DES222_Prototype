@@ -19,29 +19,27 @@ navigator.geolocation.getCurrentPosition(function(position) {
 });
 
 // Function to fetch recipes from Spoonacular API
-function fetchRecipes(mealType, latitude, longitude) {
+fetchRecipes(mealType);
+
+function fetchRecipes(mealType) {
     fetch(`https://api.spoonacular.com/recipes/complexSearch?type=${mealType}&apiKey=${apiKey}`)
         .then(response => response.json())
         .then(data => {
             const recipeList = document.getElementById('recipe-list');
             recipeList.innerHTML = ''; // Clear previous recipes
-            data.results.forEach(recipe => {
-                const listItem = document.createElement('li');
-                listItem.textContent = recipe.title;
-
-                // Create a button for the user to select the recipe
-                const selectButton = document.createElement('button');
-                selectButton.textContent = 'Select Recipe';
-                selectButton.onclick = () => {
-                    fetchRecipeDetails(recipe.id);
-                };
-
-                listItem.appendChild(selectButton);
-                recipeList.appendChild(listItem);
-            });
+            if (data.results.length > 0) {
+                data.results.forEach(recipe => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = recipe.title;
+                    recipeList.appendChild(listItem);
+                });
+            } else {
+                recipeList.innerHTML = '<li>No recipes found.</li>'; // Handle no results
+            }
         })
         .catch(error => console.error('Error fetching recipes:', error));
 }
+
 
 // Function to fetch detailed recipe information
 function fetchRecipeDetails(recipeId) {
