@@ -65,8 +65,6 @@ function displayRecipeDetails(recipe) {
     `;
 }
 
-// Optionally, remove the dynamic HTML generation if you have it statically in your HTML file
-
 // Basic CSS for styling
 const style = document.createElement('style');
 style.textContent = `
