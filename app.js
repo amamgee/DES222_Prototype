@@ -15,13 +15,12 @@ navigator.geolocation.getCurrentPosition(function(position) {
     if (hours < 12) mealType = 'breakfast';
     else if (hours >= 12 && hours < 17) mealType = 'lunch';
 
+    // Fetch recipes with latitude and longitude
     fetchRecipes(mealType, latitude, longitude);
 });
 
 // Function to fetch recipes from Spoonacular API
-fetchRecipes(mealType);
-
-function fetchRecipes(mealType) {
+function fetchRecipes(mealType, latitude, longitude) {
     fetch(`https://api.spoonacular.com/recipes/complexSearch?type=${mealType}&apiKey=${apiKey}`)
         .then(response => response.json())
         .then(data => {
@@ -31,6 +30,7 @@ function fetchRecipes(mealType) {
                 data.results.forEach(recipe => {
                     const listItem = document.createElement('li');
                     listItem.textContent = recipe.title;
+                    listItem.onclick = () => fetchRecipeDetails(recipe.id); // Call to fetch details on click
                     recipeList.appendChild(listItem);
                 });
             } else {
@@ -39,7 +39,6 @@ function fetchRecipes(mealType) {
         })
         .catch(error => console.error('Error fetching recipes:', error));
 }
-
 
 // Function to fetch detailed recipe information
 function fetchRecipeDetails(recipeId) {
@@ -66,18 +65,7 @@ function displayRecipeDetails(recipe) {
     `;
 }
 
-// HTML structure for recipe suggestions
-document.body.innerHTML += `
-    <div class="container">
-        <h2>Context-Aware Recipe App</h2>
-        <div>Your Location:</div>
-        <div>Latitude: <span id="latitude"></span></div>
-        <div>Longitude: <span id="longitude"></span></div>
-        <h3>Recipe Suggestions:</h3>
-        <ul id="recipe-list"></ul>
-        <div id="recipe-details"></div>
-    </div>
-`;
+// Optionally, remove the dynamic HTML generation if you have it statically in your HTML file
 
 // Basic CSS for styling
 const style = document.createElement('style');
