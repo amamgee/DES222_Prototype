@@ -19,6 +19,8 @@
         body, html {
             height: 100%;
             font-family: 'Poppins', sans-serif;
+            background-color: #00cec8; /* Set entire main page background color */
+            color: white;
         }
 
         /* Splash Screen Styles */
@@ -49,8 +51,6 @@
             max-width: 400px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #00cec8; /* Updated background color */
-            color: white;
         }
 
         h1 {
@@ -67,14 +67,26 @@
             font-weight: 600;
         }
 
+        /* Location Styling */
         #location {
             text-align: center;
             font-size: 18px;
-            color: white;
-            border: 1px solid grey; /* Added border */
+            background-color: white; /* Changed to white background */
+            color: #00cec8;
             padding: 10px;
+            border-radius: 50px; /* Maximum border radius */
+            border: 1px solid grey;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             margin: 20px 0;
-            border-radius: 5px;
+        }
+
+        #location img {
+            width: 30px;
+            height: 20px;
+            border-radius: 3px; /* Small radius for flag */
         }
 
         ul {
@@ -86,7 +98,7 @@
         li {
             margin: 10px 0;
             padding: 10px;
-            background: #f9f9f9;
+            background: white;
             border-radius: 3px;
             display: flex;
             justify-content: space-between;
@@ -98,7 +110,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            margin-right: 15px;
+            margin-left: 15px; /* Move the image to the right */
         }
 
         #recipe-details {
@@ -123,7 +135,10 @@
     <div class="container">
         <h1>FoodApp</h1> <!-- FoodApp title added to main screen -->
         <h2>Your Recipes</h2>
-        <p id="location">Fetching location...</p>
+        <p id="location">
+            <img id="flag" src="" alt="Country Flag"> <!-- Placeholder for flag -->
+            Fetching location...
+        </p>
         <ul id="recipe-list"></ul>
         <div id="recipe-details"></div>
     </div>
@@ -135,7 +150,7 @@
             document.querySelector('.container').style.display = 'block';
         }, 2000); // Show splash for 2 seconds
 
-        // Get user's current geolocation and fetch country name
+        // Get user's current geolocation and fetch country name and flag
         navigator.geolocation.getCurrentPosition(function(position) {
             let latitude = position.coords.latitude;
             let longitude = position.coords.longitude;
@@ -145,6 +160,7 @@
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('location').textContent = `You are in ${data.country}`;
+                    document.getElementById('flag').src = `https://countryflagsapi.com/png/${data.countrycode.toLowerCase()}`; // Fetch flag
                 })
                 .catch(error => {
                     document.getElementById('location').textContent = 'Unable to fetch location';
@@ -170,10 +186,10 @@
             if (mockData.results.length > 0) {
                 mockData.results.forEach(recipe => {
                     const listItem = document.createElement('li');
+                    listItem.textContent = recipe.title;
                     const img = document.createElement('img');
                     img.src = recipe.imgSrc;
-                    listItem.appendChild(img);
-                    listItem.appendChild(document.createTextNode(recipe.title));
+                    listItem.appendChild(img); // Append image to the right
                     listItem.onclick = () => fetchRecipeDetails(recipe.id); // Click to fetch details
                     recipeList.appendChild(listItem);
                 });
