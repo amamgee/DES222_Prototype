@@ -36,6 +36,9 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative; /* Needed for absolute positioning of details */
+    height: 150px; /* Fixed height to prevent layout shift */
+    overflow: hidden; /* To handle overflow of recipe details */
 }
 
 /* Button styles */
@@ -59,6 +62,29 @@ button:hover {
     background: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 3px;
+}
+
+/* Added styles for the recipe-item */
+.recipe-item h4 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.1em;
+}
+
+/* Fixed height and positioning for the recipe details */
+.recipe-details {
+    display: none; /* Initially hidden */
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 10px;
+    max-height: 100px; /* Limit the height */
+    overflow-y: auto;
+    color: #333;
 }
 
 /* Heading styles for ingredients and instructions */
