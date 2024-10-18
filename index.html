@@ -103,9 +103,9 @@
             cursor: pointer;
             transition: transform 0.2s;
             position: relative;
-            color: grey; /* Set text color to grey */
+            color: grey;
             overflow: hidden;
-            height: 200px; /* Fixed height for uniformity */
+            height: auto;
         }
 
         .recipe-item:hover {
@@ -114,18 +114,11 @@
 
         .recipe-item img {
             width: 100%;
-            height: auto; /* Allow images to adjust height */
+            height: 150px; /* Fixed height for uniformity */
+            object-fit: cover; /* Ensures images cover the space without distortion */
             border-radius: 8px;
             background: white; /* White background for images */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
-            object-fit: cover; /* Ensures images cover the space without distortion */
-        }
-
-        .recipe-title {
-            color: grey; /* Grey color for recipe title */
-            margin: 10px 0; /* Add some margin */
-            font-size: 18px; /* Adjust font size */
-            text-align: center; /* Center align title */
         }
 
         .recipe-details {
@@ -150,10 +143,6 @@
 
             #location {
                 font-size: 16px;
-            }
-
-            .recipe-item {
-                height: auto; /* Allow variable height for small screens */
             }
         }
     </style>
@@ -213,8 +202,15 @@
                     { id: 4, title: 'Tacos', imgSrc: 'https://feelgoodfoodie.net/wp-content/uploads/2017/04/Ground-Beef-Tacos-9.jpg' },
                     { id: 5, title: 'Margarita Pizza', imgSrc: 'https://cdn.loveandlemons.com/wp-content/uploads/2023/07/margherita-pizza-recipe.jpg' },
                     { id: 6, title: 'Chocolate Cake', imgSrc: 'https://bluebowlrecipes.com/wp-content/uploads/2023/08/chocolate-truffle-cake-8844.jpg' },
-                    { id: 7, title: 'Burgers', imgSrc: 'https://images.unsplash.com/photo-1526403235467-3e0ed70c2b7b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-4.0.3&q=80&w=400' },
-                    { id: 8, title: 'Pasta Primavera', imgSrc: 'https://images.unsplash.com/photo-1571565925477-52f8bc95ebc8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-4.0.3&q=80&w=400' }
+                    { id: 7, title: 'Pancakes', imgSrc: 'https://i.imgur.com/RkjPZea.jpg' },
+                    { id: 8, title: 'Sushi', imgSrc: 'https://i.imgur.com/XdPU5Li.jpg' },
+                    { id: 9, title: 'Greek Salad', imgSrc: 'https://i.imgur.com/ke0vymP.jpg' },
+                    { id: 10, title: 'Beef Stroganoff', imgSrc: 'https://i.imgur.com/Q2wEZXy.jpg' },
+                    { id: 11, title: 'Fruit Tart', imgSrc: 'https://i.imgur.com/CJgOjMN.jpg' },
+                    { id: 12, title: 'Baked Ziti', imgSrc: 'https://i.imgur.com/8QHb2pI.jpg' },
+                    { id: 13, title: 'Eggs Benedict', imgSrc: 'https://i.imgur.com/Eo9jx8m.jpg' },
+                    { id: 14, title: 'Pad Thai', imgSrc: 'https://i.imgur.com/zfQXtZp.jpg' },
+                    { id: 15, title: 'Ramen', imgSrc: 'https://i.imgur.com/aQhSBPT.jpg' }
                 ],
                 details: {
                     1: {
@@ -223,104 +219,87 @@
                     },
                     2: {
                         ingredients: ['Tomatoes', 'Mozzarella', 'Basil', 'Olive Oil', 'Salt'],
-                        instructions: 'Layer tomatoes and mozzarella. Drizzle with olive oil and sprinkle with salt.'
+                        instructions: 'Layer tomatoes and mozzarella. Drizzle with olive oil and sprinkle salt.'
                     },
                     3: {
                         ingredients: ['Chicken', 'Yogurt', 'Spices', 'Tomato Sauce', 'Cream'],
-                        instructions: 'Marinate chicken in yogurt and spices. Cook in sauce.'
+                        instructions: 'Marinate chicken, cook with spices, and stir in sauce and cream.'
                     },
                     4: {
-                        ingredients: ['Ground Beef', 'Taco Shells', 'Lettuce', 'Tomatoes', 'Cheese'],
-                        instructions: 'Cook beef. Fill taco shells with beef and toppings.'
+                        ingredients: ['Ground Beef', 'Tortillas', 'Lettuce', 'Tomatoes', 'Cheese'],
+                        instructions: 'Cook beef. Assemble with toppings in tortillas.'
                     },
                     5: {
-                        ingredients: ['Pizza Dough', 'Tomato Sauce', 'Mozzarella Cheese', 'Basil'],
+                        ingredients: ['Pizza Dough', 'Tomato Sauce', 'Mozzarella', 'Basil'],
                         instructions: 'Spread sauce on dough, add cheese and basil, bake.'
                     },
                     6: {
-                        ingredients: ['Flour', 'Cocoa Powder', 'Sugar', 'Eggs', 'Butter'],
-                        instructions: 'Mix ingredients, pour into pan, bake.'
+                        ingredients: ['Flour', 'Cocoa Powder', 'Sugar', 'Butter', 'Eggs'],
+                        instructions: 'Mix ingredients, pour into pan, and bake.'
                     },
                     7: {
-                        ingredients: ['Ground Beef', 'Bun', 'Lettuce', 'Tomato', 'Cheese'],
-                        instructions: 'Grill beef, assemble burger.'
+                        ingredients: ['Flour', 'Milk', 'Eggs', 'Baking Powder', 'Sugar'],
+                        instructions: 'Mix, cook on skillet, and serve with syrup.'
                     },
                     8: {
-                        ingredients: ['Pasta', 'Mixed Vegetables', 'Olive Oil', 'Garlic', 'Parmesan'],
-                        instructions: 'Cook pasta. Sauté vegetables. Combine.'
+                        ingredients: ['Sushi Rice', 'Seaweed', 'Fish', 'Vegetables', 'Soy Sauce'],
+                        instructions: 'Cook rice, roll with seaweed and fillings, slice.'
+                    },
+                    9: {
+                        ingredients: ['Tomatoes', 'Cucumber', 'Olives', 'Feta', 'Olive Oil'],
+                        instructions: 'Combine all ingredients and drizzle with olive oil.'
+                    },
+                    10: {
+                        ingredients: ['Beef', 'Mushrooms', 'Onions', 'Cream', 'Noodles'],
+                        instructions: 'Cook beef and onions, add mushrooms, stir in cream, serve with noodles.'
+                    },
+                    11: {
+                        ingredients: ['Flour', 'Butter', 'Fruit', 'Sugar', 'Cream'],
+                        instructions: 'Make crust, fill with fruit, bake, and top with cream.'
+                    },
+                    12: {
+                        ingredients: ['Ziti', 'Marinara Sauce', 'Cheese', 'Ground Beef'],
+                        instructions: 'Mix ingredients, bake until cheese is melted.'
+                    },
+                    13: {
+                        ingredients: ['English Muffins', 'Eggs', 'Ham', 'Hollandaise Sauce'],
+                        instructions: 'Poach eggs, assemble on muffins with ham and sauce.'
+                    },
+                    14: {
+                        ingredients: ['Rice Noodles', 'Chicken', 'Peanuts', 'Bean Sprouts', 'Lime'],
+                        instructions: 'Cook noodles, stir-fry with chicken, and top with peanuts and lime.'
+                    },
+                    15: {
+                        ingredients: ['Noodles', 'Broth', 'Egg', 'Vegetables', 'Meat'],
+                        instructions: 'Cook noodles, add broth and toppings.'
                     }
                 }
             };
 
             const recipeList = document.getElementById('recipe-list');
             mockData.results.forEach(recipe => {
-                const item = document.createElement('div');
-                item.className = 'recipe-item';
-                item.style.height = `${200 + Math.floor(Math.random() * 100)}px`; // Set a random height
-                item.innerHTML = `
+                const recipeItem = document.createElement('div');
+                recipeItem.className = 'recipe-item';
+                recipeItem.innerHTML = `
                     <img src="${recipe.imgSrc}" alt="${recipe.title}">
-                    <div class="recipe-title">${recipe.title}</div>
+                    <h2>${recipe.title}</h2>
+                    <div class="recipe-details" id="details-${recipe.id}">
+                        <strong>Ingredients:</strong>
+                        <ul>
+                            ${mockData.details[recipe.id].ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                        </ul>
+                        <strong>Instructions:</strong>
+                        <p>${mockData.details[recipe.id].instructions}</p>
+                    </div>
                 `;
+                
+                recipeItem.onclick = () => {
+                    const details = document.getElementById(`details-${recipe.id}`);
+                    details.style.display = details.style.display === 'none' ? 'block' : 'none';
+                };
 
-                item.addEventListener('click', () => {
-                    showDetails(recipe.id);
-                });
-
-                recipeList.appendChild(item);
+                recipeList.appendChild(recipeItem);
             });
-        }
-
-        // Function to show recipe details
-        function showDetails(id) {
-            const recipeDetails = document.getElementById('recipe-details');
-            const mockData = {
-                details: {
-                    1: {
-                        ingredients: ['Spaghetti', 'Eggs', 'Parmesan Cheese', 'Pancetta', 'Black Pepper'],
-                        instructions: 'Cook spaghetti. Fry pancetta. Mix eggs and cheese. Combine all.'
-                    },
-                    2: {
-                        ingredients: ['Tomatoes', 'Mozzarella', 'Basil', 'Olive Oil', 'Salt'],
-                        instructions: 'Layer tomatoes and mozzarella. Drizzle with olive oil and sprinkle with salt.'
-                    },
-                    3: {
-                        ingredients: ['Chicken', 'Yogurt', 'Spices', 'Tomato Sauce', 'Cream'],
-                        instructions: 'Marinate chicken in yogurt and spices. Cook in sauce.'
-                    },
-                    4: {
-                        ingredients: ['Ground Beef', 'Taco Shells', 'Lettuce', 'Tomatoes', 'Cheese'],
-                        instructions: 'Cook beef. Fill taco shells with beef and toppings.'
-                    },
-                    5: {
-                        ingredients: ['Pizza Dough', 'Tomato Sauce', 'Mozzarella Cheese', 'Basil'],
-                        instructions: 'Spread sauce on dough, add cheese and basil, bake.'
-                    },
-                    6: {
-                        ingredients: ['Flour', 'Cocoa Powder', 'Sugar', 'Eggs', 'Butter'],
-                        instructions: 'Mix ingredients, pour into pan, bake.'
-                    },
-                    7: {
-                        ingredients: ['Ground Beef', 'Bun', 'Lettuce', 'Tomato', 'Cheese'],
-                        instructions: 'Grill beef, assemble burger.'
-                    },
-                    8: {
-                        ingredients: ['Pasta', 'Mixed Vegetables', 'Olive Oil', 'Garlic', 'Parmesan'],
-                        instructions: 'Cook pasta. Sauté vegetables. Combine.'
-                    }
-                }
-            };
-
-            const recipe = mockData.details[id];
-            recipeDetails.innerHTML = `
-                <h2>${mockData.results[id - 1].title}</h2>
-                <h3>Ingredients:</h3>
-                <ul>
-                    ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-                </ul>
-                <h3>Instructions:</h3>
-                <p>${recipe.instructions}</p>
-            `;
-            recipeDetails.style.display = 'block';
         }
     </script>
 </body>
