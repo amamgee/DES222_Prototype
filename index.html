@@ -112,7 +112,8 @@
 
         .recipe-item img {
             width: 100%;
-            height: auto;
+            height: 150px; /* Fixed height for uniformity */
+            object-fit: cover; /* Ensures images cover the space without distortion */
             border-radius: 8px;
             background: white; /* White background for images */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
@@ -258,7 +259,11 @@
         // Function to toggle recipe details visibility
         function toggleRecipeDetails(recipeId) {
             const detailsSection = document.getElementById(`details-${recipeId}`);
-            detailsSection.style.display = detailsSection.style.display === 'none' || detailsSection.style.display === '' ? 'block' : 'none';
+            if (detailsSection.style.display === 'block') {
+                detailsSection.style.display = 'none'; // Hide details
+            } else {
+                detailsSection.style.display = 'block'; // Show details
+            }
         }
     </script>
 </body>
