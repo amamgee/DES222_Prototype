@@ -48,7 +48,7 @@
         /* Main App Styles */
         .container {
             display: none; /* Initially hidden */
-            max-width: 400px;
+            max-width: 800px; /* Adjusted max width */
             margin: 0 auto;
             padding: 20px;
         }
@@ -89,28 +89,28 @@
             border-radius: 3px; /* Small radius for flag */
         }
 
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
+        /* Recipe Grid Styles */
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            gap: 20px;
         }
 
-        li {
-            margin: 10px 0;
-            padding: 10px;
+        .recipe-item {
             background: white;
-            border-radius: 3px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: grey;
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
 
-        li img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-left: 15px; /* Move the image to the right */
+        .recipe-item:hover {
+            transform: scale(1.05);
+        }
+
+        .recipe-item img {
+            width: 100%;
+            border-radius: 8px;
         }
 
         #recipe-details {
@@ -120,6 +120,7 @@
             border: 1px solid #ddd;
             border-radius: 3px;
             color: grey;
+            display: none; /* Hide details initially */
         }
     </style>
 </head>
@@ -139,7 +140,7 @@
             <img id="flag" src="" alt="Country Flag"> <!-- Placeholder for flag -->
             Fetching location...
         </p>
-        <ul id="recipe-list"></ul>
+        <div class="recipe-grid" id="recipe-list"></div>
         <div id="recipe-details"></div>
     </div>
 
@@ -176,7 +177,10 @@
                 results: [
                     { id: 1, title: 'Spaghetti Carbonara', imgSrc: 'https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/0346a29a89ef229b1a0ff9697184f944/Derivates/cb5051204f4a4525c8b013c16418ae2904e737b7.jpg' },
                     { id: 2, title: 'Caprese Salad', imgSrc: 'https://www.modernhoney.com/wp-content/uploads/2021/07/Caprese-Salad-1-scaled.jpg' },
-                    { id: 3, title: 'Chicken Tikka Masala', imgSrc: 'https://www.recipetineats.com/tachyon/2018/04/Chicken-Tikka-Masala_0.jpg?resize=1200%2C1680&zoom=0.5' }
+                    { id: 3, title: 'Chicken Tikka Masala', imgSrc: 'https://www.recipetineats.com/tachyon/2018/04/Chicken-Tikka-Masala_0.jpg?resize=1200%2C1680&zoom=0.5' },
+                    { id: 4, title: 'Tacos', imgSrc: 'https://www.simplyrecipes.com/thmb/qU9iTo1tIfU0brFSl3G8TDFZFb4=/1500x0/filters:no_upscale%2Cmax_bytes(150000)/Simply-Recipes-Tacos-LEAD-02-67fae1ab5dc3461fb13d50a9f3efc501.jpg' },
+                    { id: 5, title: 'Margarita Pizza', imgSrc: 'https://www.jessicagavin.com/wp-content/uploads/2020/06/margarita-pizza-7.jpg' },
+                    { id: 6, title: 'Chocolate Cake', imgSrc: 'https://www.biggerbolderbaking.com/wp-content/uploads/2021/02/Choc-Cake-Recipe-900-2.jpg' }
                 ]
             };
 
@@ -185,16 +189,17 @@
 
             if (mockData.results.length > 0) {
                 mockData.results.forEach(recipe => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = recipe.title;
-                    const img = document.createElement('img');
-                    img.src = recipe.imgSrc;
-                    listItem.appendChild(img); // Append image to the right
-                    listItem.onclick = () => fetchRecipeDetails(recipe.id); // Click to fetch details
-                    recipeList.appendChild(listItem);
+                    const recipeItem = document.createElement('div');
+                    recipeItem.className = 'recipe-item';
+                    recipeItem.innerHTML = `
+                        <img src="${recipe.imgSrc}" alt="${recipe.title}">
+                        <h3>${recipe.title}</h3>
+                    `;
+                    recipeItem.onclick = () => fetchRecipeDetails(recipe.id); // Click to fetch details
+                    recipeList.appendChild(recipeItem);
                 });
             } else {
-                recipeList.innerHTML = '<li>No recipes found.</li>';
+                recipeList.innerHTML = '<p>No recipes found.</p>';
             }
         }
 
@@ -218,6 +223,24 @@
                     title: 'Chicken Tikka Masala',
                     ingredients: ['chicken', 'yogurt', 'garam masala', 'tomato sauce', 'cream'],
                     instructions: 'Marinate chicken, then cook with spices and sauce.'
+                },
+                4: {
+                    id: 4,
+                    title: 'Tacos',
+                    ingredients: ['taco shells', 'ground beef', 'cheese', 'lettuce', 'salsa'],
+                    instructions: 'Cook beef, fill taco shells, and add toppings.'
+                },
+                5: {
+                    id: 5,
+                    title: 'Margarita Pizza',
+                    ingredients: ['pizza dough', 'tomato sauce', 'mozzarella cheese', 'basil', 'olive oil'],
+                    instructions: 'Spread sauce on dough, add cheese and basil, then bake.'
+                },
+                6: {
+                    id: 6,
+                    title: 'Chocolate Cake',
+                    ingredients: ['flour', 'sugar', 'cocoa powder', 'eggs', 'milk', 'butter'],
+                    instructions: 'Mix ingredients and bake in a cake pan.'
                 }
             };
 
@@ -232,6 +255,7 @@
                 <h4>Instructions:</h4>
                 <p>${recipe.instructions}</p>
             `;
+            detailsSection.style.display = 'block'; // Show details section
         }
     </script>
 </body>
