@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Corrected format -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FoodApp</title>
     
     <!-- Include Google Fonts -->
@@ -92,16 +92,17 @@
         /* Recipe Grid Styles */
         .recipe-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid */
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
             gap: 20px;
         }
 
         .recipe-item {
-            background: white;
+            background: transparent; /* No background */
             border-radius: 8px;
             padding: 10px;
             cursor: pointer;
             transition: transform 0.2s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
         }
 
         .recipe-item:hover {
@@ -111,6 +112,8 @@
         .recipe-item img {
             width: 100%;
             height: auto; /* Maintain aspect ratio */
+            max-height: 150px; /* Uniform max height for images */
+            object-fit: cover; /* Ensures images fill the space without distortion */
             border-radius: 8px;
         }
 
@@ -136,6 +139,10 @@
 
             #location {
                 font-size: 16px;
+            }
+
+            .recipe-item img {
+                max-height: 120px; /* Adjust max height for smaller screens */
             }
         }
     </style>
