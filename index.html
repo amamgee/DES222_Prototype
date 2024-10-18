@@ -3,19 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Context-Aware Recipe App</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="app.js" defer></script>
+    <title>FoodApp</title>
+    
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Basic CSS styles -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Splash Screen Styles */
+        #splash-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: linear-gradient(to bottom right, #1e3c72, #2a5298, #9c1de7);
+            flex-direction: column;
+            color: white;
+        }
+
+        #splash-screen h1 {
+            font-family: 'Lobster', cursive;
+            font-size: 48px;
+        }
+
+        #splash-screen img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+
+        /* Main App Styles */
+        .container {
+            display: none; /* Initially hidden */
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            color: grey;
+            font-weight: 600;
+        }
+
+        #location {
+            text-align: center;
+            font-size: 18px;
+            color: grey;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        li {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 3px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: grey;
+        }
+
+        #recipe-details {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <img src="https://via.placeholder.com/100.png" alt="Food Logo"> <!-- Replace with actual food logo -->
+        <h1>FoodApp</h1>
+    </div>
+
+    <!-- Main Content -->
     <div class="container">
-        <h2>Context-Aware Recipe App</h2>
-        <div>Your Location:</div>
-        <div>Latitude: <span id="latitude"></span></div>
-        <div>Longitude: <span id="longitude"></span></div>
-        <h3>Recipe Suggestions:</h3>
+        <h2>Your Recipes</h2>
+        <p id="location">Fetching location...</p>
         <ul id="recipe-list"></ul>
         <div id="recipe-details"></div>
     </div>
+
+    <script>
+        // Simulate Splash Screen Delay
+        setTimeout(() => {
+            document.getElementById('splash-screen').style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
+        }, 2000); // Show splash for 2 seconds
+
+        // Get user's current geolocation and fetch country name
+        navigator.geolocation.getCurrentPosition(function(position) {
+            let latitude = position.coords.latitude;
+            let longitude = position.coords.longitude;
+
+            // Replace latitude/longitude with a country fetching API
+            fetch(`https://geocode.xyz/${latitude},${longitude}?geoit=json`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('location').textContent = `You are in ${data.country}`;
+                })
+                .catch(error => {
+                    document.getElementById('location').textContent = 'Unable to fetch location';
+                });
+
+            // Fetch recipes (mock data)
+            fetchRecipes();
+        });
+
+        // Function to simulate recipe fetching
+        function fetchRecipes() {
+            const mockData = {
+                results: [
+                    { id: 1, title: 'Spaghetti Carbonara' },
+                    { id: 2, title: 'Caprese Salad' },
+                    { id: 3, title: 'Chicken Tikka Masala' }
+                ]
+            };
+
+            const recipeList = document.getElementById('recipe-list');
+            recipeList.innerHTML = ''; // Clear previous recipes
+
+            if (mockData.results.length > 0) {
+                mockData.results.forEach(recipe => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = recipe.title;
+                    listItem.onclick = () => fetchRecipeDetails(recipe.id); // Click to fetch details
+                    recipeList.appendChild(listItem);
+                });
+            } else {
+                recipeList.innerHTML = '<li>No recipes found.</li>';
+            }
+        }
+
+        // Function to display detailed recipe information
+        function fetchRecipeDetails(recipeId) {
+            const mockData = {
+                1: {
+                    id: 1,
+                    title: 'Spaghetti Carbonara',
+                    ingredients: ['spaghetti', 'egg', 'Parmesan cheese', 'pancetta', 'black pepper'],
+                    instructions: 'Cook spaghetti. Fry pancetta. Mix with eggs and cheese.'
+                },
+                2: {
+                    id: 2,
+                    title: 'Caprese Salad',
+                    ingredients: ['mozzarella cheese', 'tomatoes', 'fresh basil', 'olive oil', 'balsamic vinegar'],
+                    instructions: 'Layer mozzarella, tomatoes, and basil. Drizzle with olive oil and balsamic vinegar.'
+                },
+                3: {
+                    id: 3,
+                    title: 'Chicken Tikka Masala',
+                    ingredients: ['chicken', 'yogurt', 'garam masala', 'tomato sauce', 'cream'],
+                    instructions: 'Marinate chicken, then cook with spices and sauce.'
+                }
+            };
+
+            const recipe = mockData[recipeId];
+            const detailsSection = document.getElementById('recipe-details');
+            detailsSection.innerHTML = `
+                <h3>${recipe.title}</h3>
+                <h4>Ingredients:</h4>
+                <ul>
+                    ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                </ul>
+                <h4>Instructions:</h4>
+                <p>${recipe.instructions}</p>
+            `;
+        }
+    </script>
 </body>
 </html>
