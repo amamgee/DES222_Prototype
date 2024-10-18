@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FoodApp</title>
-    
+
     <!-- Include Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -19,7 +19,7 @@
         body, html {
             height: 100%;
             font-family: 'Poppins', sans-serif;
-            background-color: #00cec8; /* Set entire main page background color */
+            background-color: #00cec8;
             color: white;
         }
 
@@ -47,8 +47,8 @@
 
         /* Main App Styles */
         .container {
-            display: none; /* Initially hidden */
-            max-width: 800px; /* Adjusted max width */
+            display: none;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -71,10 +71,10 @@
         #location {
             text-align: center;
             font-size: 18px;
-            background-color: white; /* Changed to white background */
+            background-color: white;
             color: #00cec8;
             padding: 10px;
-            border-radius: 50px; /* Maximum border radius */
+            border-radius: 50px;
             border: 1px solid grey;
             display: flex;
             align-items: center;
@@ -86,23 +86,24 @@
         #location img {
             width: 30px;
             height: 20px;
-            border-radius: 3px; /* Small radius for flag */
+            border-radius: 3px;
         }
 
         /* Recipe Grid Styles */
         .recipe-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 20px;
         }
 
         .recipe-item {
-            background: transparent; /* No background */
+            background: white;
             border-radius: 8px;
             padding: 10px;
             cursor: pointer;
             transition: transform 0.2s;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            position: relative;
+            color: grey; /* Set text color to grey */
         }
 
         .recipe-item:hover {
@@ -111,20 +112,20 @@
 
         .recipe-item img {
             width: 100%;
-            height: auto; /* Maintain aspect ratio */
-            max-height: 150px; /* Uniform max height for images */
-            object-fit: cover; /* Ensures images fill the space without distortion */
+            height: auto;
             border-radius: 8px;
+            background: white; /* White background for images */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
         }
 
-        #recipe-details {
-            margin-top: 20px;
+        .recipe-details {
+            display: none; /* Initially hidden */
+            margin-top: 10px;
             padding: 10px;
             background: #f9f9f9;
             border: 1px solid #ddd;
             border-radius: 3px;
             color: grey;
-            display: none; /* Hide details initially */
         }
 
         /* Responsive styles for smaller screens */
@@ -140,10 +141,6 @@
             #location {
                 font-size: 16px;
             }
-
-            .recipe-item img {
-                max-height: 120px; /* Adjust max height for smaller screens */
-            }
         }
     </style>
 </head>
@@ -151,16 +148,16 @@
 
     <!-- Splash Screen -->
     <div id="splash-screen">
-        <img src="https://www.reshot.com/preview-assets/icons/DUYKGBF2XM/hot-food-DUYKGBF2XM.svg" alt="Food Logo"> <!-- Replace with actual food logo -->
+        <img src="https://www.reshot.com/preview-assets/icons/DUYKGBF2XM/hot-food-DUYKGBF2XM.svg" alt="Food Logo">
         <h1>FoodApp</h1>
     </div>
 
     <!-- Main Content -->
     <div class="container">
-        <h1>FoodApp</h1> <!-- FoodApp title added to main screen -->
+        <h1>FoodApp</h1>
         <h2>Your Recipes</h2>
         <p id="location">
-            <img id="flag" src="" alt="Country Flag"> <!-- Placeholder for flag -->
+            <img id="flag" src="" alt="Country Flag">
             Fetching location...
         </p>
         <div class="recipe-grid" id="recipe-list"></div>
@@ -179,18 +176,16 @@
             let latitude = position.coords.latitude;
             let longitude = position.coords.longitude;
 
-            // Replace latitude/longitude with a country fetching API
             fetch(`https://geocode.xyz/${latitude},${longitude}?geoit=json`)
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('location').textContent = `You are in ${data.country}`;
-                    document.getElementById('flag').src = `https://countryflagsapi.com/png/${data.countrycode.toLowerCase()}`; // Fetch flag
+                    document.getElementById('flag').src = `https://countryflagsapi.com/png/${data.countrycode.toLowerCase()}`;
                 })
                 .catch(error => {
                     document.getElementById('location').textContent = 'Unable to fetch location';
                 });
 
-            // Fetch recipes (mock data)
             fetchRecipes();
         });
 
@@ -208,7 +203,7 @@
             };
 
             const recipeList = document.getElementById('recipe-list');
-            recipeList.innerHTML = ''; // Clear previous recipes
+            recipeList.innerHTML = '';
 
             if (mockData.results.length > 0) {
                 mockData.results.forEach(recipe => {
@@ -217,8 +212,16 @@
                     recipeItem.innerHTML = `
                         <img src="${recipe.imgSrc}" alt="${recipe.title}">
                         <h3>${recipe.title}</h3>
+                        <div class="recipe-details" id="details-${recipe.id}">
+                            <h4>Ingredients:</h4>
+                            <ul>
+                                ${mockData.details[recipe.id].ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                            </ul>
+                            <h4>Instructions:</h4>
+                            <p>${mockData.details[recipe.id].instructions}</p>
+                        </div>
                     `;
-                    recipeItem.onclick = () => fetchRecipeDetails(recipe.id); // Click to fetch details
+                    recipeItem.onclick = () => toggleRecipeDetails(recipe.id); // Click to toggle details
                     recipeList.appendChild(recipeItem);
                 });
             } else {
@@ -226,59 +229,10 @@
             }
         }
 
-        // Function to display detailed recipe information
-        function fetchRecipeDetails(recipeId) {
-            const mockData = {
-                1: {
-                    id: 1,
-                    title: 'Spaghetti Carbonara',
-                    ingredients: ['spaghetti', 'egg', 'Parmesan cheese', 'pancetta', 'black pepper'],
-                    instructions: 'Cook spaghetti. Fry pancetta. Mix with eggs and cheese.'
-                },
-                2: {
-                    id: 2,
-                    title: 'Caprese Salad',
-                    ingredients: ['mozzarella cheese', 'tomatoes', 'fresh basil', 'olive oil', 'balsamic vinegar'],
-                    instructions: 'Layer mozzarella, tomatoes, and basil. Drizzle with olive oil and balsamic vinegar.'
-                },
-                3: {
-                    id: 3,
-                    title: 'Chicken Tikka Masala',
-                    ingredients: ['chicken', 'yogurt', 'garam masala', 'tomato sauce', 'cream'],
-                    instructions: 'Marinate chicken, then cook with spices and sauce.'
-                },
-                4: {
-                    id: 4,
-                    title: 'Tacos',
-                    ingredients: ['taco shells', 'ground beef', 'cheese', 'lettuce', 'salsa'],
-                    instructions: 'Cook beef, fill taco shells, and add toppings.'
-                },
-                5: {
-                    id: 5,
-                    title: 'Margarita Pizza',
-                    ingredients: ['pizza dough', 'tomato sauce', 'mozzarella cheese', 'basil', 'olive oil'],
-                    instructions: 'Spread sauce on dough, add cheese and basil, then bake.'
-                },
-                6: {
-                    id: 6,
-                    title: 'Chocolate Cake',
-                    ingredients: ['flour', 'sugar', 'cocoa powder', 'eggs', 'milk', 'butter'],
-                    instructions: 'Mix ingredients and bake in a cake pan.'
-                }
-            };
-
-            const recipe = mockData[recipeId];
-            const detailsSection = document.getElementById('recipe-details');
-            detailsSection.innerHTML = `
-                <h3>${recipe.title}</h3>
-                <h4>Ingredients:</h4>
-                <ul>
-                    ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-                </ul>
-                <h4>Instructions:</h4>
-                <p>${recipe.instructions}</p>
-            `;
-            detailsSection.style.display = 'block'; // Show details section
+        // Function to toggle recipe details visibility
+        function toggleRecipeDetails(recipeId) {
+            const detailsSection = document.getElementById(`details-${recipeId}`);
+            detailsSection.style.display = detailsSection.style.display === 'none' || detailsSection.style.display === '' ? 'block' : 'none';
         }
     </script>
 </body>
