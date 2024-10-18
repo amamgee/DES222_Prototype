@@ -259,11 +259,7 @@
         // Function to toggle recipe details visibility
         function toggleRecipeDetails(recipeId) {
             const detailsSection = document.getElementById(`details-${recipeId}`);
-            if (detailsSection.style.display === 'block') {
-                detailsSection.style.display = 'none'; // Hide details
-            } else {
-                detailsSection.style.display = 'block'; // Show details
-            }
+            detailsSection.style.display = (detailsSection.style.display === 'block') ? 'none' : 'block'; // Toggle display
         }
     </script>
 </body>
