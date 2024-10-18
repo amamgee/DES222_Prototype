@@ -49,19 +49,32 @@
             max-width: 400px;
             margin: 0 auto;
             padding: 20px;
+            background-color: #00cec8; /* Updated background color */
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Lobster', cursive;
+            font-size: 36px;
+            margin-bottom: 20px;
         }
 
         h2 {
             text-align: center;
             font-family: 'Poppins', sans-serif;
-            color: grey;
+            color: white;
             font-weight: 600;
         }
 
         #location {
             text-align: center;
             font-size: 18px;
-            color: grey;
+            color: white;
+            border: 1px solid grey; /* Added border */
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 5px;
         }
 
         ul {
@@ -81,12 +94,20 @@
             color: grey;
         }
 
+        li img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
         #recipe-details {
             margin-top: 20px;
             padding: 10px;
             background: #f9f9f9;
             border: 1px solid #ddd;
             border-radius: 3px;
+            color: grey;
         }
     </style>
 </head>
@@ -100,6 +121,7 @@
 
     <!-- Main Content -->
     <div class="container">
+        <h1>FoodApp</h1> <!-- FoodApp title added to main screen -->
         <h2>Your Recipes</h2>
         <p id="location">Fetching location...</p>
         <ul id="recipe-list"></ul>
@@ -136,9 +158,9 @@
         function fetchRecipes() {
             const mockData = {
                 results: [
-                    { id: 1, title: 'Spaghetti Carbonara' },
-                    { id: 2, title: 'Caprese Salad' },
-                    { id: 3, title: 'Chicken Tikka Masala' }
+                    { id: 1, title: 'Spaghetti Carbonara', imgSrc: 'https://via.placeholder.com/50' },
+                    { id: 2, title: 'Caprese Salad', imgSrc: 'https://via.placeholder.com/50' },
+                    { id: 3, title: 'Chicken Tikka Masala', imgSrc: 'https://via.placeholder.com/50' }
                 ]
             };
 
@@ -148,7 +170,10 @@
             if (mockData.results.length > 0) {
                 mockData.results.forEach(recipe => {
                     const listItem = document.createElement('li');
-                    listItem.textContent = recipe.title;
+                    const img = document.createElement('img');
+                    img.src = recipe.imgSrc;
+                    listItem.appendChild(img);
+                    listItem.appendChild(document.createTextNode(recipe.title));
                     listItem.onclick = () => fetchRecipeDetails(recipe.id); // Click to fetch details
                     recipeList.appendChild(listItem);
                 });
