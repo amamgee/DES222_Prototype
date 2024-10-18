@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodApp</title>
+    <title>Recipe Finder & Location</title>
     
     <!-- Include Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -46,28 +46,21 @@
         /* Main App Styles */
         .container {
             display: none; /* Initially hidden */
-            max-width: 400px;
+            max-width: 600px;
             margin: 0 auto;
+            background: white;
             padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         h2 {
             text-align: center;
-            font-family: 'Poppins', sans-serif;
-            color: grey;
-            font-weight: 600;
-        }
-
-        #location {
-            text-align: center;
-            font-size: 18px;
-            color: grey;
         }
 
         ul {
             list-style: none;
             padding: 0;
-            margin: 20px 0;
         }
 
         li {
@@ -78,7 +71,23 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: grey;
+        }
+
+        button {
+            padding: 5px 10px;
+            background: #007bff;
+            border: none;
+            color: white;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        h4 {
+            margin-top: 20px;
         }
 
         #recipe-details {
@@ -87,6 +96,13 @@
             background: #f9f9f9;
             border: 1px solid #ddd;
             border-radius: 3px;
+        }
+
+        #logo {
+            width: 100px;
+            height: 100px;
+            margin: 20px auto;
+            text-align: center;
         }
     </style>
 </head>
@@ -100,9 +116,21 @@
 
     <!-- Main Content -->
     <div class="container">
-        <h2>Your Recipes</h2>
-        <p id="location">Fetching location...</p>
+        <h2>Recipe Finder</h2>
+
+        <!-- SVG Logo -->
+        <div id="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="100" height="100" viewBox="0 0 2048 2048" style="shape-rendering:geometricPrecision;text-rendering:geometricPrecision;image-rendering:optimizeQuality;fill-rule:evenodd;clip-rule:evenodd"><defs><clipPath id="id0"><path d="M1024-.001c565.541 0 1024 458.46 1024 1024s-458.461 1024-1024 1024c-565.541 0-1024-458.461-1024-1024 0-565.541 458.461-1024 1024-1024z"/></clipPath><style>.fil1{fill:#512da8}.fil3,.fil4{fill:#e6e6e5;fill-rule:nonzero}.fil3{fill:#fffffe}</style></defs><g id="Layer_x0020_1"><path d="M1024-.001c565.541 0 1024 458.46 1024 1024s-458.461 1024-1024 1024c-565.541 0-1024-458.461-1024-1024 0-565.541 458.461-1024 1024-1024z" style="fill:#7e57c2"/><g style="clip-path:url(#id0)"><g id="_517129624"><path id="_4980812001" class="fil1" d="M1620.81 1609.5zM484.93 473.62z"/><path id="_498081776" class="fil1" d="M1235.52 558.308 2371.4 1694.19l1.15 1.89.7 2.27.31 2.62-.05 2.97-.36 3.31-.64 3.64-.88 3.96-1.07 4.27-1.22 4.58-1.34 4.87-1.41 5.16-1.44 5.43-1.44 5.7-1.38 5.96-1.3 6.2-1.17 6.45-1 6.67-.79 6.9-.54 7.11-.25 7.31.09 7.5.45 7.69.87 7.87 1.32 8.03 1.82 8.19 2.34 8.33 2.92 8.48 3.54 8.6 4.19 8.73 4.89 8.83 5.62 8.94L1249.45 746.768l-5.63-8.939-4.88-8.836-4.19-8.724-3.54-8.605-2.92-8.474-2.35-8.336-1.81-8.188-1.32-8.031-.87-7.864-.45-7.69-.09-7.505.25-7.311.54-7.108.79-6.896 1-6.676 1.17-6.445 1.3-6.206 1.38-5.957 1.44-5.699 1.44-5.433 1.41-5.157 1.34-4.872 1.22-4.578 1.07-4.273.87-3.961.64-3.641.37-3.309.05-2.969-.31-2.621-.71-2.262z"/></svg>
+        </div>
+
+        <h3>Your Location</h3>
+        <p>Latitude: <span id="latitude"></span></p>
+        <p>Longitude: <span id="longitude"></span></p>
+        <button id="getLocation">Get My Location</button>
+
+        <h3>Recipes</h3>
         <ul id="recipe-list"></ul>
+        
         <div id="recipe-details"></div>
     </div>
 
@@ -113,43 +141,69 @@
             document.querySelector('.container').style.display = 'block';
         }, 2000); // Show splash for 2 seconds
 
-        // Get user's current geolocation and fetch country name
-        navigator.geolocation.getCurrentPosition(function(position) {
-            let latitude = position.coords.latitude;
-            let longitude = position.coords.longitude;
-
-            // Replace latitude/longitude with a country fetching API
-            fetch(`https://geocode.xyz/${latitude},${longitude}?geoit=json`)
+        // Geocode.xyz API integration
+        document.getElementById('getLocation').addEventListener('click', () => {
+            fetch('https://geocode.xyz/?locate=auto&json=1&auth=121650045740013e15890305x47644')
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('location').textContent = `You are in ${data.country}`;
-                })
-                .catch(error => {
-                    document.getElementById('location').textContent = 'Unable to fetch location';
-                });
+                    const latitude = data.latt;
+                    const longitude = data.longt;
+                    document.getElementById('latitude').textContent = latitude;
+                    document.getElementById('longitude').textContent = longitude;
 
-            // Fetch recipes (mock data)
-            fetchRecipes();
+                    const hours = new Date().getHours();
+                    let mealType = 'dinner';
+                    if (hours < 12) mealType = 'breakfast';
+                    else if (hours >= 12 && hours < 17) mealType = 'lunch';
+
+                    fetchRecipes(mealType, latitude, longitude);
+                })
+                .catch(err => {
+                    console.error('Error fetching location data:', err);
+                });
         });
 
-        // Function to simulate recipe fetching
-        function fetchRecipes() {
-            const mockData = {
+        // Function to fetch recipes from mock data
+        function fetchRecipes(mealType, latitude, longitude) {
+            console.log(`Fetching recipes for ${mealType}, Latitude: ${latitude}, Longitude: ${longitude}`);
+
+            const data = {
                 results: [
-                    { id: 1, title: 'Spaghetti Carbonara' },
-                    { id: 2, title: 'Caprese Salad' },
-                    { id: 3, title: 'Chicken Tikka Masala' }
+                    {
+                        id: 1,
+                        title: 'Spaghetti Carbonara',
+                        extendedIngredients: [
+                            { original: 'spaghetti' },
+                            { original: 'egg' },
+                            { original: 'Parmesan cheese' },
+                            { original: 'pancetta' },
+                            { original: 'black pepper' }
+                        ],
+                        instructions: 'Cook spaghetti. Fry pancetta. Mix with eggs and cheese.'
+                    },
+                    {
+                        id: 2,
+                        title: 'Caprese Salad',
+                        extendedIngredients: [
+                            { original: 'mozzarella cheese' },
+                            { original: 'tomatoes' },
+                            { original: 'fresh basil' },
+                            { original: 'olive oil' },
+                            { original: 'balsamic vinegar' }
+                        ],
+                        instructions: 'Layer mozzarella, tomatoes, and basil. Drizzle with olive oil and balsamic vinegar.'
+                    }
                 ]
             };
 
             const recipeList = document.getElementById('recipe-list');
-            recipeList.innerHTML = ''; // Clear previous recipes
+            recipeList.innerHTML = '';
 
-            if (mockData.results.length > 0) {
-                mockData.results.forEach(recipe => {
+            if (data.results.length > 0) {
+                data.results.forEach(recipe => {
                     const listItem = document.createElement('li');
                     listItem.textContent = recipe.title;
-                    listItem.onclick = () => fetchRecipeDetails(recipe.id); // Click to fetch details
+                    listItem.onclick = () => fetchRecipeDetails(recipe.id);
                     recipeList.appendChild(listItem);
                 });
             } else {
@@ -157,40 +211,51 @@
             }
         }
 
-        // Function to display detailed recipe information
         function fetchRecipeDetails(recipeId) {
             const mockData = {
-                1: {
-                    id: 1,
-                    title: 'Spaghetti Carbonara',
-                    ingredients: ['spaghetti', 'egg', 'Parmesan cheese', 'pancetta', 'black pepper'],
-                    instructions: 'Cook spaghetti. Fry pancetta. Mix with eggs and cheese.'
-                },
-                2: {
-                    id: 2,
-                    title: 'Caprese Salad',
-                    ingredients: ['mozzarella cheese', 'tomatoes', 'fresh basil', 'olive oil', 'balsamic vinegar'],
-                    instructions: 'Layer mozzarella, tomatoes, and basil. Drizzle with olive oil and balsamic vinegar.'
-                },
-                3: {
-                    id: 3,
-                    title: 'Chicken Tikka Masala',
-                    ingredients: ['chicken', 'yogurt', 'garam masala', 'tomato sauce', 'cream'],
-                    instructions: 'Marinate chicken, then cook with spices and sauce.'
-                }
+                results: [
+                    {
+                        id: 1,
+                        title: 'Spaghetti Carbonara',
+                        extendedIngredients: [
+                            { original: 'spaghetti' },
+                            { original: 'egg' },
+                            { original: 'Parmesan cheese' },
+                            { original: 'pancetta' },
+                            { original: 'black pepper' }
+                        ],
+                        instructions: 'Cook spaghetti. Fry pancetta. Mix with eggs and cheese.'
+                    },
+                    {
+                        id: 2,
+                        title: 'Caprese Salad',
+                        extendedIngredients: [
+                            { original: 'mozzarella cheese' },
+                            { original: 'tomatoes' },
+                            { original: 'fresh basil' },
+                            { original: 'olive oil' },
+                            { original: 'balsamic vinegar' }
+                        ],
+                        instructions: 'Layer mozzarella, tomatoes, and basil. Drizzle with olive oil and balsamic vinegar.'
+                    }
+                ]
             };
 
-            const recipe = mockData[recipeId];
-            const detailsSection = document.getElementById('recipe-details');
-            detailsSection.innerHTML = `
-                <h3>${recipe.title}</h3>
-                <h4>Ingredients:</h4>
-                <ul>
-                    ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-                </ul>
-                <h4>Instructions:</h4>
-                <p>${recipe.instructions}</p>
-            `;
+            const recipe = mockData.results.find(r => r.id === recipeId);
+            if (recipe) {
+                const detailsSection = document.getElementById('recipe-details');
+                detailsSection.innerHTML = `
+                    <h3>${recipe.title}</h3>
+                    <h4>Ingredients:</h4>
+                    <ul>
+                        ${recipe.extendedIngredients.map(ingredient => `<li>${ingredient.original}</li>`).join('')}
+                    </ul>
+                    <h4>Instructions:</h4>
+                    <p>${recipe.instructions}</p>
+                `;
+            } else {
+                console.error('Recipe not found:', recipeId);
+            }
         }
     </script>
 </body>
