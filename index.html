@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Corrected format -->
     <title>FoodApp</title>
     
     <!-- Include Google Fonts -->
@@ -92,7 +92,7 @@
         /* Recipe Grid Styles */
         .recipe-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid */
             gap: 20px;
         }
 
@@ -110,6 +110,7 @@
 
         .recipe-item img {
             width: 100%;
+            height: auto; /* Maintain aspect ratio */
             border-radius: 8px;
         }
 
@@ -121,6 +122,21 @@
             border-radius: 3px;
             color: grey;
             display: none; /* Hide details initially */
+        }
+
+        /* Responsive styles for smaller screens */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            #location {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -178,9 +194,9 @@
                     { id: 1, title: 'Spaghetti Carbonara', imgSrc: 'https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/0346a29a89ef229b1a0ff9697184f944/Derivates/cb5051204f4a4525c8b013c16418ae2904e737b7.jpg' },
                     { id: 2, title: 'Caprese Salad', imgSrc: 'https://www.modernhoney.com/wp-content/uploads/2021/07/Caprese-Salad-1-scaled.jpg' },
                     { id: 3, title: 'Chicken Tikka Masala', imgSrc: 'https://www.recipetineats.com/tachyon/2018/04/Chicken-Tikka-Masala_0.jpg?resize=1200%2C1680&zoom=0.5' },
-                    { id: 4, title: 'Tacos', imgSrc: 'https://www.simplyrecipes.com/thmb/qU9iTo1tIfU0brFSl3G8TDFZFb4=/1500x0/filters:no_upscale%2Cmax_bytes(150000)/Simply-Recipes-Tacos-LEAD-02-67fae1ab5dc3461fb13d50a9f3efc501.jpg' },
-                    { id: 5, title: 'Margarita Pizza', imgSrc: 'https://www.jessicagavin.com/wp-content/uploads/2020/06/margarita-pizza-7.jpg' },
-                    { id: 6, title: 'Chocolate Cake', imgSrc: 'https://www.biggerbolderbaking.com/wp-content/uploads/2021/02/Choc-Cake-Recipe-900-2.jpg' }
+                    { id: 4, title: 'Tacos', imgSrc: 'https://feelgoodfoodie.net/wp-content/uploads/2017/04/Ground-Beef-Tacos-9.jpg' },
+                    { id: 5, title: 'Margarita Pizza', imgSrc: 'https://cdn.loveandlemons.com/wp-content/uploads/2023/07/margherita-pizza-recipe.jpg' },
+                    { id: 6, title: 'Chocolate Cake', imgSrc: 'https://bluebowlrecipes.com/wp-content/uploads/2023/08/chocolate-truffle-cake-8844.jpg' }
                 ]
             };
 
