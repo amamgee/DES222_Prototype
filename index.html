@@ -3,241 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodApp</title>
-
-    <!-- Include Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
-    <!-- Basic CSS styles -->
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body, html {
-            height: 100%;
-            font-family: 'Poppins', sans-serif;
-            background-color: #00cec8;
-            color: white;
-        }
-
-        /* Splash Screen Styles */
-        #splash-screen {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            background: linear-gradient(to bottom right, #1e3c72, #2a5298, #9c1de7);
-            flex-direction: column;
-            color: white;
-        }
-
-        #splash-screen h1 {
-            font-family: 'Lobster', cursive;
-            font-size: 48px;
-        }
-
-        #splash-screen img {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 20px;
-        }
-
-        /* Main App Styles */
-        .container {
-            display: none;
-            max-width: 1000px; /* Adjusted for grid layout */
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            font-family: 'Lobster', cursive;
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            text-align: center;
-            font-family: 'Poppins', sans-serif;
-            color: white;
-            font-weight: 600;
-        }
-
-        /* Location Styling */
-        #location {
-            text-align: center;
-            font-size: 18px;
-            background-color: white;
-            color: #00cec8;
-            padding: 10px;
-            border-radius: 50px;
-            border: 1px solid grey;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
-        }
-
-        #location img {
-            width: 30px;
-            height: 20px;
-            border-radius: 3px;
-        }
-
-        /* Recipe Grid Styles */
-        .recipe-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
-            grid-gap: 20px;
-        }
-
-        /* Recipe item styles */
-        .recipe-item {
-            background: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            cursor: pointer; /* Change cursor to pointer for clickable items */
-        }
-
-        .recipe-item img {
-            width: 100%;
-            height: 150px; /* Fixed height for uniformity */
-            object-fit: cover; /* Ensures images cover the space without distortion */
-            border-radius: 5px;
-        }
-
-        .recipe-item h3 {
-            text-align: center;
-            color: #333;
-            margin: 10px 0 5px 0;
-            font-size: 1.2em;
-        }
-
-        .recipe-item .recipe-details {
-            display: none; /* Initially hidden */
-            margin-top: 10px;
-            padding: 10px;
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            color: #555;
-            max-height: 100px;
-            overflow-y: auto; /* Scroll if content overflows */
-        }
-
-        .recipe-item:hover {
-            transform: scale(1.05);
-        }
-
-        /* Responsive styles for smaller screens */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 28px;
-            }
-
-            h2 {
-                font-size: 20px;
-            }
-
-            #location {
-                font-size: 16px;
-            }
-        }
-    </style>
+    <title>FoodApp - Recipe Finder</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Add loading spinner CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-
     <!-- Splash Screen -->
-    <div id="splash-screen">
-        <img src="https://www.reshot.com/preview-assets/icons/DUYKGBF2XM/hot-food-DUYKGBF2XM.svg" alt="Food Logo">
+    <div id="splash-screen" class="splash-screen">
+        <img src="https://www.reshot.com/preview-assets/icons/DUYKGBF2XM/hot-food-DUYKGBF2XM.svg" alt="Food Logo" class="logo">
         <h1>FoodApp</h1>
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+        </div>
     </div>
 
-    <!-- Main Content -->
+    <!-- Main Container -->
     <div class="container">
-        <h1>FoodApp</h1>
-        <h2>Your Recipes</h2>
-        <p id="location">
-            <img id="flag" src="" alt="Country Flag">
-            Fetching location...
-        </p>
-        <div class="recipe-grid" id="recipe-list"></div>
+        <header>
+            <h1>FoodApp</h1>
+            <div class="location-info">
+                <img id="flag" src="" alt="Country Flag" style="display: none;">
+                <p>Location: <span id="location-text">Fetching location...</span></p>
+            </div>
+        </header>
+
+        <!-- Loading State -->
+        <div id="loading" class="loading-state">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <p>Loading recipes...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="error-message" class="error-message" style="display: none;">
+        </div>
+
+        <!-- Recipe Grid -->
+        <div id="recipe-list" class="recipe-grid">
+        </div>
+
+        <!-- Recipe Details Modal -->
+        <div id="recipe-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <div id="recipe-details">
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script>
-        // Simulate Splash Screen Delay
-        setTimeout(() => {
-            document.getElementById('splash-screen').style.display = 'none';
-            document.querySelector('.container').style.display = 'block';
-        }, 2000); // Show splash for 2 seconds
-
-        // Get user's current geolocation and fetch country name and flag
-        navigator.geolocation.getCurrentPosition(function(position) {
-            let latitude = position.coords.latitude;
-            let longitude = position.coords.longitude;
-
-            fetch(`https://geocode.xyz/${latitude},${longitude}?geoit=json`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('location').textContent = `You are in ${data.country}`;
-                    document.getElementById('flag').src = `https://countryflagsapi.com/png/${data.countrycode.toLowerCase()}`;
-                })
-                .catch(error => {
-                    document.getElementById('location').textContent = 'Unable to fetch location';
-                });
-
-            fetchRecipes();
-        });
-
-        // Function to simulate recipe fetching
-        function fetchRecipes() {
-            const mockData = {
-                results: [
-                    { id: 1, title: 'Spaghetti Carbonara', imgSrc: 'https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/0346a29a89ef229b1a0ff9697184f944/Derivates/cb5051204f4a4525c8b013c16418ae2904e737b7.jpg' },
-                    { id: 2, title: 'Caprese Salad', imgSrc: 'https://www.modernhoney.com/wp-content/uploads/2021/07/Caprese-Salad-1-scaled.jpg' },
-                    { id: 3, title: 'Chicken Tikka Masala', imgSrc: 'https://www.recipetineats.com/tachyon/2018/04/Chicken-Tikka-Masala_0.jpg?resize=1200%2C1680&zoom=0.5' },
-                    { id: 4, title: 'Tacos', imgSrc: 'https://feelgoodfoodie.net/wp-content/uploads/2017/04/Ground-Beef-Tacos-9.jpg' },
-                    { id: 5, title: 'Margarita Pizza', imgSrc: 'https://cdn.loveandlemons.com/wp-content/uploads/2023/07/margherita-pizza-recipe.jpg' },
-                    { id: 6, title: 'Chocolate Cake', imgSrc: 'https://bluebowlrecipes.com/wp-content/uploads/2023/08/chocolate-truffle-cake-8844.jpg' },
-                    { id: 7, title: 'Pancakes', imgSrc: 'https://cdn.loveandlemons.com/wp-content/uploads/2022/09/oatmeal-pancakes-1.jpg' },
-                    { id: 8, title: 'Sushi', imgSrc: 'https://media02.stockfood.com/largepreviews/Mzc0NjM2MDg1/12085035-Nigiri-and-Maki-sushi-with-salmon-and-tuna-Japan.jpg' },
-                    { id: 9, title: 'Greek Salad', imgSrc: 'https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/08/Greek-Salad-6-1.jpg' },
-                    { id: 10, title: 'Beef Stroganoff', imgSrc: 'https://saltedmint.com/wp-content/uploads/2024/01/Beef-stroganoff-with-rice-1.jpg' },
-                    { id: 11, title: 'Fruit Tart', imgSrc: 'https://apronandwhisk.com/wp-content/uploads/2021/04/Fruit-tarts-food-photography-5-1638x2048.jpg' },
-                    { id: 12, title: 'Baked Ziti', imgSrc: 'https://www.kimscravings.com/wp-content/uploads/2019/12/Baked-Ziti-4.jpg' },
-                ]
-            };
-
-            const recipeList = document.getElementById('recipe-list');
-            mockData.results.forEach(recipe => {
-                const recipeItem = document.createElement('div');
-                recipeItem.classList.add('recipe-item');
-                recipeItem.innerHTML = `
-                    <img src="${recipe.imgSrc}" alt="${recipe.title}">
-                    <h3>${recipe.title}</h3>
-                    <div class="recipe-details">
-                        <p>Details about ${recipe.title}.</p>
-                    </div>
-                `;
-
-                recipeItem.addEventListener('click', () => {
-                    const details = recipeItem.querySelector('.recipe-details');
-                    details.style.display = details.style.display === 'none' ? 'block' : 'none'; // Toggle visibility
-                });
-
-                recipeList.appendChild(recipeItem);
-            });
-        }
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
