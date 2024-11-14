@@ -175,29 +175,32 @@
     </div>
 
     <script>
-        // Simulate Splash Screen Delay
+    const hasVisitedBefore = localStorage.getItem('visited');
+
+    if (!hasVisitedBefore) {
         setTimeout(() => {
             document.getElementById('splash-screen').style.display = 'none';
             document.querySelector('.container').style.display = 'block';
+            localStorage.setItem('visited', 'true');
         }, 2000); // Show splash for 2 seconds
+    } else {
+        document.getElementById('splash-screen').style.display = 'none';
+        document.querySelector('.container').style.display = 'block';
+    }
 
-        // Get user's current geolocation and fetch country name and flag
+    // Fetch location and apply theme
+    function fetchLocationAndTheme(latitude, longitude) {
         navigator.geolocation.getCurrentPosition(function(position) {
-            let latitude = position.coords.latitude;
-            let longitude = position.coords.longitude;
-
-            fetch(`https://geocode.xyz/${latitude},${longitude}?geoit=json`)
+            fetchLocationBasedData(position.coords.latitude, position.coords.longitude);
+        }, function() {
+            // Fallback to IP if geolocation is denied
+            fetch('https://ipapi.co/json/')
                 .then(response => response.json())
-                .then(data => {
-                    document.getElementById('location').textContent = `You are in ${data.country}`;
-                    document.getElementById('flag').src = `https://countryflagsapi.com/png/${data.countrycode.toLowerCase()}`;
-                })
-                .catch(error => {
-                    document.getElementById('location').textContent = 'Unable to fetch location';
-                });
-
-            fetchRecipes();
+                .then(data => fetchLocationBasedData(data.latitude, data.longitude))
+                .catch(() => document.getElementById('location').textContent = 'Unable to fetch location');
         });
+    }
+
 
         // Function to simulate recipe fetching
         function fetchRecipes() {

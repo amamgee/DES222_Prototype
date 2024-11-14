@@ -73,3 +73,36 @@ button {
 button:hover {
     background: #0056b3;
 }
+
+/* Responsive Recipe Grid */
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Flexible grid */
+    grid-gap: 20px;
+    padding: 10px;
+}
+
+.recipe-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover; /* Prevents stretching */
+    border-radius: 5px;
+}
+
+/* Smooth toggle transition */
+.recipe-details {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 600px) {
+    .recipe-item h3 {
+        font-size: 1em;
+    }
+    .recipe-item img {
+        height: 120px; /* Smaller image height for mobile */
+    }
+}
