@@ -59,3 +59,23 @@ body {
         height: 120px;
     }
 }
+
+/* Splash Screen Styles */
+#splash-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Full viewport height */
+    background: linear-gradient(to bottom right, #1e3c72, #2a5298, #9c1de7);
+    flex-direction: column;
+    color: white;
+    position: fixed; /* Cover entire screen */
+    width: 100%;
+    z-index: 1000;
+}
+
+#splash-screen h1 {
+    font-family: 'Lobster', cursive;
+    font-size: 48px;
+    margin-top: 20px;
+}
