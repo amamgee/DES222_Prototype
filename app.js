@@ -1,31 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const ipGeolocationUrl = 'https://ipinfo.io/json?token=YOUR_IPINFO_API_KEY';
+  let page = 1; // Track current page for infinite scrolling
+
   // Hide splash screen and show main content
   setTimeout(() => {
     document.getElementById('splash-screen').style.display = 'none';
     document.getElementById('main-content').classList.remove('hidden');
   }, 2500);
 
-  // Check geolocation support
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(position => {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      let page = 1; // Track current page for infinite scrolling
-
+  // Fetch user's location based on IP
+  fetch(ipGeolocationUrl)
+    .then(response => response.json())
+    .then(data => {
+      const location = data.city || 'Rome'; // Fallback to 'Rome' if location is unavailable
+      console.log(`Detected location: ${location}`);
+      
       // Load initial photos
-      fetchPhotosFromPexels(`location ${lat},${lon}`, page);
+      fetchPhotosFromPexels(location, page);
 
       // Infinite scroll - load more photos when near the bottom
       window.addEventListener('scroll', () => {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
           page++; // Increment page number to fetch the next set of images
-          fetchPhotosFromPexels(`location ${lat},${lon}`, page);
+          fetchPhotosFromPexels(location, page);
         }
       });
-    }, handleError);
-  } else {
-    alert('Geolocation is not supported by this browser.');
-  }
+    })
+    .catch(error => {
+      console.error('Error fetching IP location:', error);
+      alert('Unable to retrieve your location. Loading default images.');
+      fetchPhotosFromPexels('Rome', page); // Default to Rome if IP geolocation fails
+    });
 });
 
 // Function to fetch photos from Pexels API
@@ -51,12 +56,12 @@ function displayPhotos(photos) {
     img.src = photo.src.medium; // Use medium-sized images from Pexels
     img.alt = photo.alt;
     img.classList.add('sightseeing-image');
+    
+    // Trigger reflow on image load for masonry layout
+    img.onload = () => {
+      sightseeingFeed.style.gridAutoRows = 'auto';
+    };
+
     sightseeingFeed.appendChild(img);
   });
-}
-
-// Geolocation error handling
-function handleError(error) {
-  console.error('Error retrieving location:', error);
-  alert('Unable to retrieve your location for sightseeing suggestions.');
 }

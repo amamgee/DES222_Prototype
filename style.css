@@ -142,11 +142,10 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s;
-    grid-row: span 2; /* Allows variable heights for uneven look */
+    grid-row: span 30;
   }
   
   .sightseeing-image:hover {
     transform: scale(1.05);
   }
-  
   
