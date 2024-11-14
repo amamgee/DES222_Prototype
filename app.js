@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const ipGeolocationUrl = 'https://ipinfo.io/json?token=YOUR_IPINFO_API_KEY';
+  const ipGeolocationUrl = 'https://ipinfo.io/json?token=YOUR_IPINFO_API_KEY'; // Replace with actual IPinfo token
   let page = 1; // Start at the first page
   let location; // To store the user's location or default fallback
-  const mainContent = document.getElementById('main-content');
 
   // Hide splash screen and show main content after a short delay
   setTimeout(() => {
     document.getElementById('splash-screen').style.display = 'none';
-    mainContent.classList.remove('hidden');
+    document.getElementById('main-content').classList.remove('hidden');
   }, 2500);
 
   // Fetch user's location based on IP
@@ -20,15 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
       // Load initial photos
       fetchPhotosFromPexels(location, page);
 
-      // Set up infinite scroll listener
-      mainContent.addEventListener('scroll', handleScroll); // Bind to main content
+      // Set up infinite scroll listener on window
+      window.addEventListener('scroll', handleScroll);
     })
     .catch(error => {
       console.error('Error fetching IP location:', error);
       // Fallback to a default location silently
       location = 'Rome';
       fetchPhotosFromPexels(location, page);
-      mainContent.addEventListener('scroll', handleScroll);
+      window.addEventListener('scroll', handleScroll);
     });
 });
 
@@ -44,7 +43,12 @@ function fetchPhotosFromPexels(query, page) {
   })
     .then(response => response.json())
     .then(data => {
-      displayPhotos(data.photos);
+      console.log('Pexels API response:', data); // Debugging output
+      if (data.photos && data.photos.length > 0) {
+        displayPhotos(data.photos);
+      } else {
+        console.warn('No photos returned from Pexels API for this query.');
+      }
     })
     .catch(error => console.error('Error fetching Pexels images:', error));
 }
@@ -55,7 +59,7 @@ function displayPhotos(photos) {
   photos.forEach(photo => {
     const img = document.createElement('img');
     img.src = photo.src.medium; // Use medium-sized images from Pexels
-    img.alt = photo.alt;
+    img.alt = photo.alt || 'Sightseeing Image';
     img.classList.add('sightseeing-image');
 
     sightseeingFeed.appendChild(img);
@@ -65,8 +69,7 @@ function displayPhotos(photos) {
 // Infinite Scroll Event Handler
 function handleScroll() {
   console.log('Scroll event detected'); // Debugging log for scroll event
-  const mainContent = document.getElementById('main-content');
-  if (mainContent.scrollHeight - mainContent.scrollTop <= mainContent.clientHeight + 100) {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
     console.log('Fetching next page of images'); // Debug log before fetching next page
     page++; // Increment page number to fetch the next set of images
     fetchPhotosFromPexels(location, page); // Fetch next page of images
