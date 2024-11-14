@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Local Sightseeing Guide</title>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sightseeing Nearby</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Splash Screen -->
+  <div id="splash-screen">
+    <h1>Sightseeing Nearby</h1>
+  </div>
 
-    <!-- Splash Screen -->
-    <div id="splash-screen">
-        <h1>Welcome to Sightseeing Guide</h1>
+  <!-- Main Content -->
+  <main id="main-content" class="hidden">
+    <div class="sightseeing-feed" id="sightseeing-feed">
+      <!-- Sightseeing items will be dynamically added here -->
     </div>
+  </main>
 
-    <!-- Main Content -->
-    <div class="container">
-        <h1>Sightseeing Spots Near You</h1>
-        <p id="location">Fetching your location...</p>
-        <div class="spot-grid" id="spot-list"></div>
-    </div>
-
-    <script src="app.js" defer></script>
+  <script src="app.js"></script>
 </body>
 </html>
