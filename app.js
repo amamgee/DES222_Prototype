@@ -89,17 +89,3 @@ function fetchRecipes() {
 
 // Call fetchRecipes on page load
 fetchRecipes();
-
-// Splash screen logic
-const hasVisitedBefore = localStorage.getItem('visited');
-
-if (!hasVisitedBefore) {
-    setTimeout(() => {
-        document.getElementById('splash-screen').style.display = 'none';
-        document.querySelector('.container').style.display = 'block';
-        localStorage.setItem('visited', 'true');
-    }, 2000); // Show splash for 2 seconds
-} else {
-    document.getElementById('splash-screen').style.display = 'none';
-    document.querySelector('.container').style.display = 'block';
-}
