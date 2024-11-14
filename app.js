@@ -2,11 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const ipGeolocationUrl = 'https://ipinfo.io/json?token=YOUR_IPINFO_API_KEY';
   let page = 1; // Start at the first page
   let location; // To store the user's location or default fallback
+  const mainContent = document.getElementById('main-content');
 
   // Hide splash screen and show main content after a short delay
   setTimeout(() => {
     document.getElementById('splash-screen').style.display = 'none';
-    document.getElementById('main-content').classList.remove('hidden');
+    mainContent.classList.remove('hidden');
   }, 2500);
 
   // Fetch user's location based on IP
@@ -20,14 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
       fetchPhotosFromPexels(location, page);
 
       // Set up infinite scroll listener
-      window.addEventListener('scroll', handleScroll);
+      mainContent.addEventListener('scroll', handleScroll); // Bind to main content
     })
     .catch(error => {
       console.error('Error fetching IP location:', error);
       // Fallback to a default location silently
       location = 'Rome';
       fetchPhotosFromPexels(location, page);
-      window.addEventListener('scroll', handleScroll);
+      mainContent.addEventListener('scroll', handleScroll);
     });
 });
 
@@ -64,7 +65,8 @@ function displayPhotos(photos) {
 // Infinite Scroll Event Handler
 function handleScroll() {
   console.log('Scroll event detected'); // Debugging log for scroll event
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+  const mainContent = document.getElementById('main-content');
+  if (mainContent.scrollHeight - mainContent.scrollTop <= mainContent.clientHeight + 100) {
     console.log('Fetching next page of images'); // Debug log before fetching next page
     page++; // Increment page number to fetch the next set of images
     fetchPhotosFromPexels(location, page); // Fetch next page of images

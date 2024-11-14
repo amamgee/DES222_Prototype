@@ -59,7 +59,9 @@
     max-width: 1200px;
     padding: 1rem;
     margin: 0 auto;
+    padding-bottom: 100px; /* Additional padding for scroll testing */
   }
+  
   
   /* Image styling */
   .sightseeing-image {
