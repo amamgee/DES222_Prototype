@@ -53,21 +53,21 @@
   /* Sightseeing Feed */
   .sightseeing-feed {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Three columns on wide screens */
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
     grid-gap: 1rem;
     width: 100%;
     max-width: 1200px;
     padding: 1rem;
+    margin: 0 auto;
   }
   
-  /* Images */
+  /* Image styling */
   .sightseeing-image {
     width: 100%;
+    height: 350px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s;
-    /* Make each image occupy a variable number of rows based on its height */
-    grid-row-end: span 10;
     object-fit: cover;
   }
   
