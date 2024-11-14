@@ -125,10 +125,11 @@
     height: 100px;
   }
   
-  /* Sightseeing Feed Layout */
+/* Sightseeing Feed Layout for Masonry Style */
 .sightseeing-feed {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-auto-rows: 10px;
     gap: 1rem;
     width: 100%;
     max-width: 600px;
@@ -141,9 +142,11 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s;
+    grid-row: span 2; /* Allows variable heights for uneven look */
   }
   
   .sightseeing-image:hover {
     transform: scale(1.05);
   }
+  
   

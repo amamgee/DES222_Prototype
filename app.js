@@ -45,21 +45,25 @@ function handleError(error) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Hide splash screen and show main content after a short delay
-  setTimeout(() => {
-    document.getElementById('splash-screen').style.display = 'none';
-    document.getElementById('main-content').classList.remove('hidden');
-  }, 2500);
+  const location = 'Rome'; // Replace with a dynamic location if possible
+  let page = 1; // Track current page for infinite scrolling
 
-  // Example location to fetch photos for (replace with a dynamic location if available)
-  const location = 'Rome'; // Replace with dynamic location if possible
-  fetchPhotosFromPexels(location);
+  // Load initial photos
+  fetchPhotosFromPexels(location, page);
+
+  // Infinite scroll - load more photos when near the bottom
+  window.addEventListener('scroll', () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+      page++; // Increment page number to fetch the next set of images
+      fetchPhotosFromPexels(location, page);
+    }
+  });
 });
 
 // Function to fetch photos from Pexels API
-function fetchPhotosFromPexels(query) {
+function fetchPhotosFromPexels(query, page) {
   const apiKey = 'RE9OiIOFqVbNwm4KTxrIiRH7AJDgOar2Vgan24sSj8GK0ruHJfb4IMVk';
-  const url = `https://api.pexels.com/v1/search?query=${query}&per_page=10`;
+  const url = `https://api.pexels.com/v1/search?query=${query}&per_page=10&page=${page}`;
 
   fetch(url, {
     headers: { Authorization: apiKey }
@@ -76,7 +80,7 @@ function displayPhotos(photos) {
   const sightseeingFeed = document.getElementById('sightseeing-feed');
   photos.forEach(photo => {
     const img = document.createElement('img');
-    img.src = photo.src.medium; // Using medium-sized images from Pexels
+    img.src = photo.src.medium; // Use medium-sized images from Pexels
     img.alt = photo.alt;
     img.classList.add('sightseeing-image');
     sightseeingFeed.appendChild(img);
