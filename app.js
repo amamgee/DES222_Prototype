@@ -19,9 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
       // Load initial photos
       fetchPhotosFromPexels(location, page);
 
-      // Initialize Masonry after loading the first set of images
-      initializeMasonry();
-
       // Infinite scroll - load more photos when near the bottom
       window.addEventListener('scroll', () => {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
@@ -34,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('Error fetching IP location:', error);
       // Secret fallback to "Rome" without notifying the user
       fetchPhotosFromPexels('Rome', page);
-      initializeMasonry();
     });
 });
 
@@ -49,7 +45,6 @@ function fetchPhotosFromPexels(query, page) {
     .then(response => response.json())
     .then(data => {
       displayPhotos(data.photos);
-      if (masonry) masonry.layout(); // Refresh Masonry layout after adding new images
     })
     .catch(error => console.error('Error fetching Pexels images:', error));
 }
@@ -65,14 +60,23 @@ function displayPhotos(photos) {
     
     sightseeingFeed.appendChild(img);
   });
+
+  // Wait for images to load before applying Masonry layout
+  imagesLoaded(sightseeingFeed, () => {
+    initializeMasonry();
+  });
 }
 
 // Initialize Masonry layout
 function initializeMasonry() {
-  masonry = new Masonry('#sightseeing-feed', {
-    itemSelector: '.sightseeing-image',
-    columnWidth: 200,
-    gutter: 10,
-    fitWidth: true
-  });
+  if (!masonry) {
+    masonry = new Masonry('#sightseeing-feed', {
+      itemSelector: '.sightseeing-image',
+      columnWidth: 200,
+      gutter: 10,
+      fitWidth: true
+    });
+  } else {
+    masonry.layout(); // Refresh Masonry layout
+  }
 }

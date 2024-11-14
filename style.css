@@ -50,8 +50,8 @@
     background-color: #7f00ff;
   }
   
-  /* Sightseeing Feed */
-  .sightseeing-feed {
+/* Sightseeing Feed Layout */
+.sightseeing-feed {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
