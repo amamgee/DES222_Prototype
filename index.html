@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Location-Based Recipe App</title>
+    <title>Local Sightseeing Guide</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -13,23 +13,14 @@
 
     <!-- Splash Screen -->
     <div id="splash-screen">
-        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-aperture">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
-            <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
-            <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
-            <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
-            <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
-            <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
-        </svg>
-        <h1>Recipe Finder</h1>
+        <h1>Welcome to Sightseeing Guide</h1>
     </div>
 
     <!-- Main Content -->
     <div class="container">
-        <h1>Recipes Near You</h1>
-        <p id="location">Fetching location...</p>
-        <div class="recipe-grid" id="recipe-list"></div>
+        <h1>Sightseeing Spots Near You</h1>
+        <p id="location">Fetching your location...</p>
+        <div class="spot-grid" id="spot-list"></div>
     </div>
 
     <script src="app.js" defer></script>
