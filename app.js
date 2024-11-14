@@ -15,14 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Fetch and display nearby sightseeing locations
 function showNearbySightseeing(position) {
-  const lat = position.coords.latitude;
-  const lng = position.coords.longitude;
-
-  // Example sightseeing locations (replace with actual API data)
   const sightseeingSpots = [
     { name: 'Colosseum', img: 'https://example.com/colosseum.jpg' },
     { name: 'Trevi Fountain', img: 'https://example.com/trevi-fountain.jpg' },
-    // Add more sample spots or replace with real API call
   ];
 
   const sightseeingFeed = document.getElementById('sightseeing-feed');
@@ -45,7 +40,6 @@ function showNearbySightseeing(position) {
   });
 }
 
-// Error handler for geolocation
 function handleError(error) {
   alert('Unable to retrieve your location for sightseeing suggestions.');
 }

@@ -24,20 +24,30 @@
     background-color: #7f00ff;
     color: #ffffff;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
     animation: fadeOut 1.5s forwards;
     animation-delay: 2s;
+  }
+  
+  .splash-icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
   }
   
   /* Main Content */
   #main-content {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    flex-direction: column;
     width: 100%;
-    padding: 1rem;
+    height: 100vh;
     overflow-y: auto;
     background-color: #7f00ff;
   }
@@ -53,6 +63,8 @@
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 1rem;
     width: 100%;
+    max-width: 600px;
+    padding: 1rem;
   }
   
   /* Sightseeing Card */
@@ -77,6 +89,7 @@
   
   .sightseeing-card-content {
     padding: 1rem;
+    text-align: center;
   }
   
   /* Animation for Splash Screen Fade */
@@ -86,4 +99,5 @@
       visibility: hidden;
     }
   }
+  
   
