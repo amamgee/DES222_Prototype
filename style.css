@@ -27,18 +27,20 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    animation: fadeOut 1.5s forwards;
-    animation-delay: 2s;
   }
   
-  .splash-icon {
+  /* Splash Icon */
+  .splash-icon svg {
     width: 100px;
     height: 100px;
     margin-bottom: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;  
   }
+  
+  /* Title with Lobster Font */
+  #splash-screen h1 {
+    font-family: 'Lobster', cursive;
+    font-size: 2.5rem;
+  }  
   
   /* Main Content */
   #main-content {
