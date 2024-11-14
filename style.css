@@ -12,8 +12,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow-x: hidden;
   }
   
   /* Splash Screen */
@@ -50,20 +50,25 @@
     background-color: #7f00ff;
   }
   
-/* Sightseeing Feed Layout */
-.sightseeing-feed {
+  /* Sightseeing Feed */
+  .sightseeing-feed {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Three columns on wide screens */
+    grid-gap: 1rem;
     width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 1200px;
+    padding: 1rem;
   }
   
-  /* Image styling for Masonry */
+  /* Images */
   .sightseeing-image {
     width: 100%;
-    margin-bottom: 1rem;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s;
+    /* Make each image occupy a variable number of rows based on its height */
+    grid-row-end: span 10;
+    object-fit: cover;
   }
   
   .sightseeing-image:hover {

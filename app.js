@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const ipGeolocationUrl = 'https://ipinfo.io/json?token=YOUR_IPINFO_API_KEY';
   let page = 1; // Track current page for infinite scrolling
-  let masonry; // Variable for Masonry instance
 
   // Hide splash screen and show main content
   setTimeout(() => {
@@ -57,26 +56,7 @@ function displayPhotos(photos) {
     img.src = photo.src.medium; // Use medium-sized images from Pexels
     img.alt = photo.alt;
     img.classList.add('sightseeing-image');
-    
+
     sightseeingFeed.appendChild(img);
   });
-
-  // Wait for images to load before applying Masonry layout
-  imagesLoaded(sightseeingFeed, () => {
-    initializeMasonry();
-  });
-}
-
-// Initialize Masonry layout
-function initializeMasonry() {
-  if (!masonry) {
-    masonry = new Masonry('#sightseeing-feed', {
-      itemSelector: '.sightseeing-image',
-      columnWidth: 200,
-      gutter: 10,
-      fitWidth: true
-    });
-  } else {
-    masonry.layout(); // Refresh Masonry layout
-  }
 }
