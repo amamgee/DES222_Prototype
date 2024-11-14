@@ -29,120 +29,41 @@
     align-items: center;
   }
   
-  /* Splash Icon */
   .splash-icon svg {
     width: 100px;
     height: 100px;
     margin-bottom: 1rem;
   }
   
-  /* Title with Barriecito Font */
   #splash-screen h1 {
     font-family: 'Barriecito', cursive;
     font-size: 2.5rem;
-  }  
+  }
   
   /* Main Content */
   #main-content {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
     width: 100%;
-    height: 100vh;
-    overflow-y: auto;
+    padding: 1rem;
     background-color: #7f00ff;
   }
   
-  /* Hide Content Until Splash Screen Disappears */
-  .hidden {
-    display: none;
-  }
-  
-  /* Feed Layout */
+  /* Sightseeing Feed */
   .sightseeing-feed {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 1rem;
     width: 100%;
-    max-width: 600px;
-    padding: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
   }
   
-  /* Sightseeing Card */
-  .sightseeing-card {
-    background-color: #ffffff;
-    color: #333333;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s;
-  }
-  
-  .sightseeing-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .sightseeing-card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-  }
-  
-  .sightseeing-card-content {
-    padding: 1rem;
-    text-align: center;
-  }
-  
-  /* Animation for Splash Screen Fade */
-  @keyframes fadeOut {
-    to {
-      opacity: 0;
-      visibility: hidden;
-    }
-  }
-  
-  /* Shadow for the Title */
-#splash-screen h1 {
-    font-size: 2.5rem;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-    margin-top: 1rem;
-  }
-  
-  /* Gradient for SVG Icon */
-  .splash-icon svg path {
-    fill: url(#instagram-gradient);
-  }
-  
-  /* Add SVG Gradient */
-  .splash-icon svg {
-    width: 100px;
-    height: 100px;
-  }
-  
-  .splash-icon svg defs {
-    width: 100px;
-    height: 100px;
-  }
-  
-/* Sightseeing Feed Layout for Masonry Style */
-.sightseeing-feed {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    grid-auto-rows: 10px;
-    gap: 1rem;
-    width: 100%;
-    max-width: 600px;
-    padding: 1rem;
-    justify-content: center;
-  }
-  
+  /* Image styling for Masonry */
   .sightseeing-image {
     width: 100%;
+    margin-bottom: 1rem;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s;
-    grid-row: span 30;
   }
   
   .sightseeing-image:hover {

@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const ipGeolocationUrl = 'https://ipinfo.io/json?token=YOUR_IPINFO_API_KEY';
   let page = 1; // Track current page for infinite scrolling
+  let masonry; // Variable for Masonry instance
 
   // Hide splash screen and show main content
   setTimeout(() => {
@@ -14,9 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       const location = data.city || 'Rome'; // Fallback to 'Rome' if location is unavailable
       console.log(`Detected location: ${location}`);
-      
+
       // Load initial photos
       fetchPhotosFromPexels(location, page);
+
+      // Initialize Masonry after loading the first set of images
+      initializeMasonry();
 
       // Infinite scroll - load more photos when near the bottom
       window.addEventListener('scroll', () => {
@@ -28,8 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => {
       console.error('Error fetching IP location:', error);
-      alert('Unable to retrieve your location. Loading default images.');
-      fetchPhotosFromPexels('Rome', page); // Default to Rome if IP geolocation fails
+      // Secret fallback to "Rome" without notifying the user
+      fetchPhotosFromPexels('Rome', page);
+      initializeMasonry();
     });
 });
 
@@ -44,6 +49,7 @@ function fetchPhotosFromPexels(query, page) {
     .then(response => response.json())
     .then(data => {
       displayPhotos(data.photos);
+      if (masonry) masonry.layout(); // Refresh Masonry layout after adding new images
     })
     .catch(error => console.error('Error fetching Pexels images:', error));
 }
@@ -57,11 +63,16 @@ function displayPhotos(photos) {
     img.alt = photo.alt;
     img.classList.add('sightseeing-image');
     
-    // Trigger reflow on image load for masonry layout
-    img.onload = () => {
-      sightseeingFeed.style.gridAutoRows = 'auto';
-    };
-
     sightseeingFeed.appendChild(img);
+  });
+}
+
+// Initialize Masonry layout
+function initializeMasonry() {
+  masonry = new Masonry('#sightseeing-feed', {
+    itemSelector: '.sightseeing-image',
+    columnWidth: 200,
+    gutter: 10,
+    fitWidth: true
   });
 }
