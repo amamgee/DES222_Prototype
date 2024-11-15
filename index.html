@@ -32,21 +32,18 @@
 
   <!-- Main Content -->
   <main id="main-content" class="hidden">
+    <header id="main-header">
+      <h1 class="app-title">SnapGram</h1>
+      <div class="location-bar">
+        Location: <span id="user-location">Loading...</span>
+      </div>
+    </header>
     <div class="sightseeing-feed" id="sightseeing-feed">
       <!-- Sightseeing images will be dynamically added here -->
     </div>
+    <button id="load-more-button" class="hidden">Load More</button>
   </main>
 
   <script src="app.js"></script>
-  <main id="main-content" class="hidden">
-    <!-- Arrow Down Button -->
-    <button id="down-arrow-button" class="hidden">
-      ⬇️
-    </button>
-    <div class="sightseeing-feed" id="sightseeing-feed">
-      <!-- Sightseeing images will be dynamically added here -->
-    </div>
-  </main>
-  
 </body>
 </html>

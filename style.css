@@ -30,12 +30,6 @@
     z-index: 10;
   }
   
-  .splash-icon svg {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 1rem;
-  }
-  
   #splash-screen h1 {
     font-family: 'Barriecito', cursive;
     font-size: 2.5rem;
@@ -59,17 +53,16 @@
   #login-page h1.login-title {
     font-family: 'Barriecito', cursive;
     font-size: 3rem;
-    margin-top: auto; /* Pushes the title to the center */
   }
   
   #login-page p.login-subtitle {
     font-size: 1.5rem;
-    margin: 1rem 0 2rem; /* Adds spacing between the title and subtitle */
+    margin: 1rem 0 2rem;
   }
   
   #login-page button#explore-button {
     margin-top: auto;
-    margin-bottom: 3rem; /* Keeps button above the bottom edge */
+    margin-bottom: 3rem;
     padding: 0.8rem 1.5rem;
     font-size: 1.2rem;
     color: #000000;
@@ -84,29 +77,75 @@
   #login-page button#explore-button:hover {
     background-color: #f2f2f2;
   }
-/* Down-Arrow Button */
-#down-arrow-button {
-    position: fixed;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
+  
+  /* Main Content */
+  #main-content {
+    width: 100%;
+    padding: 1rem;
+    max-width: 1200px;
+    text-align: center;
+  }
+  
+  /* Header and Location Bar */
+  #main-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .app-title {
+    font-family: 'Barriecito', cursive;
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+  }
+  
+  .location-bar {
     background-color: #ffffff;
-    color: #000000;
-    font-size: 1.5rem;
-    padding: 0.8rem;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
+    color: #7f00ff;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  /* Sightseeing Feed */
+  .sightseeing-feed {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .sightseeing-image {
+    width: 100%;
+    max-width: 270px;
+    height: auto;
+    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s;
-    z-index: 20;
+    object-fit: cover;
   }
   
-  #down-arrow-button:hover {
-    transform: translateX(-50%) translateY(4px);
+  .sightseeing-image:hover {
+    transform: scale(1.05);
   }
   
-  .hidden {
-    display: none;
+  /* Load More Button */
+  #load-more-button {
+    margin: 2rem auto;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    color: #7f00ff;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
   }
-    
+  
+  #load-more-button:hover {
+    background-color: #f2f2f2;
+  }
+  
