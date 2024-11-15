@@ -32,17 +32,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function fetchPhotosFromPexels(query, page) {
   const apiKey = 'RE9OiIOFqVbNwm4KTxrIiRH7AJDgOar2Vgan24sSj8GK0ruHJfb4IMVk';
-  const perPage = 30; // Number of images per request
+  const perPage = 30; // Fetch 30 images per request
   const url = `https://api.pexels.com/v1/search?query=${query}&per_page=${perPage}&page=${page}`;
 
-  console.log(`Fetching photos from Pexels for ${query} - Page ${page}, ${perPage} per page`);
+  console.log(`Fetching photos from Pexels for query: "${query}" - Page: ${page}, Per Page: ${perPage}`);
+  console.log(`API URL: ${url}`);
 
   fetch(url, {
     headers: { Authorization: apiKey }
   })
-    .then(response => response.json())
+    .then(response => {
+      console.log('Response status:', response.status); // Check the HTTP status
+      return response.json();
+    })
     .then(data => {
-      console.log('Pexels API response:', data); // Debugging output
+      console.log('Pexels API response:', data); // Log the entire response
       if (data.photos && data.photos.length > 0) {
         displayPhotos(data.photos);
       } else {
