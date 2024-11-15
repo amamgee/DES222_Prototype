@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const ipGeolocationUrl = 'https://ipinfo.io/json?token=YOUR_IPINFO_API_KEY'; // Replace with your IPinfo API token
-  let page = 1; // Start at the first page
-  let location; // To store the user's location or default fallback
+  const ipGeolocationUrl = 'https://ipinfo.io/77.32.78.146?token=773d706935dfe5';
+  let page = 1;
+  let location;
 
   // Hide splash screen after a short delay and show the login page
   setTimeout(() => {
@@ -88,41 +88,34 @@ function handleScroll() {
   }
 }
 
-// Show login page after hiding the splash screen
-setTimeout(() => {
-  document.getElementById('splash-screen').style.display = 'none';
-  document.getElementById('login-page').classList.remove('hidden');
-}, 2500);
+  // Show login page after hiding the splash screen
+  setTimeout(() => {
+    document.getElementById('splash-screen').style.display = 'none';
+    document.getElementById('login-page').classList.remove('hidden');
+  }, 2500);
 
-// Handle the Explore button click
-document.getElementById('explore-button').addEventListener('click', () => {
-  // Fetch user's IP location
-  fetch(ipGeolocationUrl)
-    .then(response => response.json())
-    .then(data => {
-      location = data.city || 'Noosa, Australia'; // Fallback to hardcoded location
-      console.log(`Detected location: ${location}`);
-
-      // Transition to the main content
-      document.getElementById('login-page').style.display = 'none';
-      document.getElementById('main-content').classList.remove('hidden');
-
-      // Load initial photos
-      fetchPhotosFromPexels(location, page);
-
-      // Set up infinite scroll listener
-      window.addEventListener('scroll', handleScroll);
-    })
-    .catch(error => {
-      console.error('Error fetching IP location:', error);
-      alert('Unable to determine location. Loading default content.');
-
-      // Fallback to default location
-      location = 'Noosa, Australia';
-      document.getElementById('login-page').style.display = 'none';
-      document.getElementById('main-content').classList.remove('hidden');
-
-      fetchPhotosFromPexels(location, page);
-      window.addEventListener('scroll', handleScroll);
-    });
-});
+  // Handle the Explore button click
+  document.getElementById('explore-button').addEventListener('click', () => {
+    // Attempt to fetch user's IP location
+    fetch(ipGeolocationUrl)
+      .then(response => response.json())
+      .then(data => {
+        location = data.city || 'Noosa, Australia'; // Fallback to hardcoded location
+        console.log(`Detected location: ${location}`);
+      })
+      .catch(error => {
+        console.error('Error fetching IP location:', error);
+        location = 'Noosa, Australia'; // Use fallback location
+      })
+      .finally(() => {
+        // Transition to the main content
+        document.getElementById('login-page').style.display = 'none';
+        document.getElementById('main-content').classList.remove('hidden');
+        
+        // Load initial photos
+        fetchPhotosFromPexels(location, page);
+        
+        // Set up infinite scroll listener
+        window.addEventListener('scroll', handleScroll);
+      });
+  });
