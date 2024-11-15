@@ -87,7 +87,7 @@ function showImageModal(photo) {
 
   modalImage.src = photo.src.large; // Use large-sized image for better quality
   modalImage.alt = photo.alt || 'Sightseeing Image';
-  photographerName.textContent = photo.photographer || 'Unknown';
+  photographerName.textContent = photo.photographer || 'Unknown Photographer';
   imageDescription.textContent = photo.alt || 'No description available.';
 
   modal.classList.remove('hidden');
@@ -99,5 +99,5 @@ function closeModal() {
   modal.classList.add('hidden');
 }
 
-// Attach event listener to close button
+// Attach event listener to "X" button
 document.getElementById('close-modal-button').addEventListener('click', closeModal);
