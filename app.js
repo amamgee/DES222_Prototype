@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const ipGeolocationUrl = 'https://ipinfo.io/json?token=YOUR_IPINFO_API_KEY'; // Replace with actual IPinfo token
+  const ipGeolocationUrl = 'https://ipinfo.io/json?token=YOUR_IPINFO_API_KEY'; // Replace with your IPinfo API token
   let page = 1; // Start at the first page
-  let location; // To store the user's location or default fallback
+  let location = 'Noosa, Australia'; // Default location for testing
 
   // Hide splash screen and show main content after a short delay
   setTimeout(() => {
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   fetch(ipGeolocationUrl)
     .then(response => response.json())
     .then(data => {
-      location = data.city || 'Rome'; // Default to 'Rome' if location is unavailable
+      location = data.city || location; // Use detected city or fallback to hardcoded location
       console.log(`Detected location: ${location}`);
 
       // Load initial photos
@@ -24,8 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => {
       console.error('Error fetching IP location:', error);
-      // Fallback to a default location silently
-      location = 'Rome';
+      console.log(`Falling back to hardcoded location: ${location}`);
       fetchPhotosFromPexels(location, page);
       window.addEventListener('scroll', handleScroll);
     });
