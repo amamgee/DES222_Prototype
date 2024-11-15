@@ -7,8 +7,8 @@
   }
   
   body {
-    background-color: #7f00ff;
-    color: #ffffff;
+    background-color: #FAF9F6;
+    color: #FF5733;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,8 +21,8 @@
     position: fixed;
     width: 100vw;
     height: 100vh;
-    background-color: #7f00ff;
-    color: #ffffff;
+    background-color: #FAF9F6;
+    color: #FF5733;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -30,9 +30,16 @@
     z-index: 10;
   }
   
+  .splash-icon svg {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+  }
+  
   #splash-screen h1 {
     font-family: 'Barriecito', cursive;
-    font-size: 2.5rem;
+    font-size: 2rem;
+    color: #FF5733;
   }
   
   /* Login Page */
@@ -41,11 +48,12 @@
     width: 100vw;
     height: 100vh;
     background: url('https://images.unsplash.com/photo-1509439581779-6298f75bf6e5?q=80&w=2762&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
-    color: #ffffff;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
+    color: #ffffff;
     padding: 0 20px;
     z-index: 5;
   }
@@ -53,19 +61,20 @@
   #login-page h1.login-title {
     font-family: 'Barriecito', cursive;
     font-size: 3rem;
+    color: #FF5733;
+    margin-bottom: 0.5rem;
   }
   
   #login-page p.login-subtitle {
     font-size: 1.5rem;
+    color: #FF5733;
     margin: 1rem 0 2rem;
   }
   
   #login-page button#explore-button {
-    margin-top: auto;
-    margin-bottom: 3rem;
     padding: 0.8rem 1.5rem;
     font-size: 1.2rem;
-    color: #000000;
+    color: #FF5733;
     background-color: #ffffff;
     font-family: 'Barriecito', cursive;
     border: none;
@@ -84,6 +93,7 @@
     padding: 1rem;
     max-width: 1200px;
     text-align: center;
+    background-color: #FAF9F6;
   }
   
   /* Header and Location Bar */
@@ -97,15 +107,16 @@
   .app-title {
     font-family: 'Barriecito', cursive;
     font-size: 2rem;
-    color: #ffffff;
+    color: #FF5733;
     margin-bottom: 0.5rem;
   }
   
   .location-bar {
     background-color: #ffffff;
-    color: #7f00ff;
+    color: #FF5733;
     padding: 0.5rem 1rem;
     border-radius: 5px;
+    font-family: 'Barriecito', cursive;
     font-weight: bold;
   }
   
@@ -136,8 +147,9 @@
     margin: 2rem auto;
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
-    color: #7f00ff;
+    color: #FF5733;
     background-color: #ffffff;
+    font-family: 'Barriecito', cursive;
     border: none;
     border-radius: 5px;
     cursor: pointer;
