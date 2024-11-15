@@ -136,21 +136,3 @@ document.addEventListener('DOMContentLoaded', () => {
   closeModalButton.addEventListener('click', closeModal);
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-  const likeButtons = document.querySelectorAll('.like-button');
-  
-  likeButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      this.classList.toggle('liked'); // Toggle the 'liked' class to change the color
-    });
-  });
-});
-document.addEventListener('DOMContentLoaded', function() {
-  const likeButtons = document.querySelectorAll('.like-button');
-
-  likeButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      this.classList.toggle('liked'); // Toggle the 'liked' class to change color
-    });
-  });
-});

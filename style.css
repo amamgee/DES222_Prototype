@@ -263,26 +263,3 @@ body {
     background-color: #FF4511;
   }
   
-  /* Like */
-  .photo-card {
-    position: relative;
-    display: inline-block;
-    margin: 8px;
-  }
-  
-  .like-button {
-    position: absolute;
-    top: 10px; /* Adjust based on your layout */
-    right: 10px; /* Adjust based on your layout */
-    background: none;
-    border: none;
-    color: #ccc; /* Default grey color */
-    font-size: 24px; /* Size of the heart */
-    cursor: pointer;
-    outline: none;
-  }
-  
-  .like-button.liked {
-    color: red; /* Turns red when clicked */
-  }
-  
