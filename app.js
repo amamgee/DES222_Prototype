@@ -108,7 +108,14 @@ function extractLocationKeywords(description) {
   }
 
   // Example approach: Define common keywords or fallback if needed
-  const locationKeywords = ["Rome", "Paris", "Eiffel Tower", "Colosseum", "St. Peter's Basilica", "Amalfi Coast"];
+  const locationKeywords = [
+    "Rome", "Paris", "Eiffel Tower", "Colosseum", "St. Peter's Basilica", "Amalfi Coast",
+    // Sunshine Coast Australia locations
+    "Noosa", "Mooloolaba", "Caloundra", "Glass House Mountains", "Hinterland", "Eumundi", 
+    "Alexandra Headland", "Kings Beach", "Sunshine Beach", "Point Cartwright", "Mount Coolum", 
+    "Coolum Beach", "Maroochydore", "Buderim", "Kondalilla Falls", "Mapleton Falls"
+  ];
+  
   const foundKeywords = locationKeywords.filter(keyword => description.includes(keyword));
 
   // Join found keywords or default to the entire description if no specific keyword is found
