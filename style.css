@@ -27,6 +27,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 10; /* Ensure splash screen appears on top */
   }
   
   .splash-icon svg {
@@ -45,13 +46,14 @@
     position: fixed;
     width: 100vw;
     height: 100vh;
-    background: url('ennio-berti-WErW8WfpPOE-unsplash.jpg') no-repeat center center/cover;
+    background: url('https://images.unsplash.com/photo-1509439581779-6298f75bf6e5?q=80&w=2762&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
     color: #ffffff;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+    z-index: 5; /* Ensure it appears above main content */
   }
   
   #login-page h1.login-title {
@@ -79,5 +81,10 @@
   
   #login-page button#explore-button:hover {
     background-color: #f2f2f2;
+  }
+  
+  /* Main Content */
+  #main-content {
+    padding: 1rem;
   }
   
