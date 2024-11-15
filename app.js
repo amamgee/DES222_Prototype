@@ -84,14 +84,22 @@ function showImageModal(photo) {
   const modalImage = document.getElementById('modal-image');
   const photographerName = document.getElementById('photographer-name');
   const imageDescription = document.querySelector('.image-description');
+  const directionsLink = document.getElementById('directions-link'); // Reference to the new link element
 
-  modalImage.src = photo.src.large; // Use large-sized image for better quality
+  modalImage.src = photo.src.large; // Display large version of the image
   modalImage.alt = photo.alt || 'Sightseeing Image';
   photographerName.textContent = photo.photographer || 'Unknown Photographer';
   imageDescription.textContent = photo.alt || 'No description available.';
 
+  // Generate a Google Maps link based on location data (use a default or fallback location if needed)
+  const location = photo.location || "Noosa, Australia"; // Replace with actual location data if available
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
+  directionsLink.href = googleMapsUrl; // Set the Google Maps URL in the link element
+  directionsLink.classList.remove('hidden'); // Ensure the link is visible
+
   modal.classList.remove('hidden');
 }
+
 
 // Function to close the modal
 function closeModal() {

@@ -246,4 +246,20 @@ body {
     background-color: #FF4511;
   }
   
+  #directions-link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #FF5733;
+    font-family: 'Barriecito', cursive;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  #directions-link:hover {
+    background-color: #FF4511;
+  }
   
