@@ -50,27 +50,26 @@
     color: #ffffff;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     text-align: center;
-    z-index: 5;
     padding: 0 20px;
+    z-index: 5;
   }
   
   #login-page h1.login-title {
     font-family: 'Barriecito', cursive;
     font-size: 3rem;
-    margin-bottom: 1rem;
+    margin-top: auto; /* Pushes the title to the center */
   }
   
   #login-page p.login-subtitle {
     font-size: 1.5rem;
-    margin-bottom: auto;
+    margin: 1rem 0 2rem; /* Adds spacing between the title and subtitle */
   }
   
   #login-page button#explore-button {
     margin-top: auto;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem; /* Keeps button above the bottom edge */
     padding: 0.8rem 1.5rem;
     font-size: 1.2rem;
     color: #000000;
