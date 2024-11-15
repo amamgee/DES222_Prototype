@@ -263,4 +263,21 @@ body {
     background-color: #FF4511;
   }
   
+  /* Like */
+  .like-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #ccc; /* Default grey color */
+    font-size: 24px; /* Size of the heart */
+    cursor: pointer;
+    outline: none; /* Removes focus outline */
+  }
+  
+  .like-button.liked {
+    color: red; /* Color when liked */
+  }
+  
   
