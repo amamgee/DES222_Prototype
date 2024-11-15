@@ -60,3 +60,44 @@ function displayPhotos(photos) {
     sightseeingFeed.appendChild(img);
   });
 }
+
+function displayPhotos(photos) {
+  const sightseeingFeed = document.getElementById('sightseeing-feed');
+  photos.forEach(photo => {
+    const img = document.createElement('img');
+    img.src = photo.src.medium; // Use medium-sized images from Pexels
+    img.alt = photo.alt || 'Sightseeing Image';
+    img.classList.add('sightseeing-image');
+
+    // Add click event to open modal with image details
+    img.addEventListener('click', () => {
+      showImageModal(photo);
+    });
+
+    sightseeingFeed.appendChild(img);
+  });
+}
+
+// Function to show the modal with image details
+function showImageModal(photo) {
+  const modal = document.getElementById('image-modal');
+  const modalImage = document.getElementById('modal-image');
+  const photographerName = document.getElementById('photographer-name');
+  const imageDescription = document.querySelector('.image-description');
+
+  modalImage.src = photo.src.large; // Use large-sized image for better quality
+  modalImage.alt = photo.alt || 'Sightseeing Image';
+  photographerName.textContent = photo.photographer || 'Unknown';
+  imageDescription.textContent = photo.alt || 'No description available.';
+
+  modal.classList.remove('hidden');
+}
+
+// Function to close the modal
+function closeModal() {
+  const modal = document.getElementById('image-modal');
+  modal.classList.add('hidden');
+}
+
+// Attach event listener to close button
+document.getElementById('close-modal-button').addEventListener('click', closeModal);
