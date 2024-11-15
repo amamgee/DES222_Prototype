@@ -136,3 +136,82 @@ document.addEventListener('DOMContentLoaded', () => {
   closeModalButton.addEventListener('click', closeModal);
 });
 
+// Array to store favourite photos
+let favourites = [];
+
+// Add to favourites
+function addToFavourites(photo) {
+  if (!favourites.some(fav => fav.src.medium === photo.src.medium)) {
+    favourites.push(photo);
+    alert("Added to Favourites!");
+  } else {
+    alert("Already in Favourites!");
+  }
+}
+
+// Display favourites
+function showFavourites() {
+  const favouritesList = document.getElementById("favourites-list");
+  favouritesList.innerHTML = ""; // Clear existing content
+
+  favourites.forEach(photo => {
+    const img = document.createElement("img");
+    img.src = photo.src.medium;
+    img.alt = photo.alt || "Favourite Image";
+    favouritesList.appendChild(img);
+  });
+
+  document.getElementById("favourites-modal").classList.remove("hidden");
+}
+
+// Close favourites modal
+document.getElementById("close-favourites-button").addEventListener("click", () => {
+  document.getElementById("favourites-modal").classList.add("hidden");
+});
+
+// Add click event to heart buttons
+function displayPhotos(photos) {
+  const sightseeingFeed = document.getElementById("sightseeing-feed");
+
+  photos.forEach(photo => {
+    const card = document.createElement("div");
+    card.className = "photo-card";
+
+    const img = document.createElement("img");
+    img.src = photo.src.medium;
+    img.alt = photo.alt || "Sightseeing Image";
+    img.classList.add("sightseeing-image");
+
+    const favButton = document.createElement("button");
+    favButton.className = "favourite-button";
+    favButton.textContent = "❤️";
+    favButton.addEventListener("click", () => addToFavourites(photo));
+
+    card.appendChild(img);
+    card.appendChild(favButton);
+    sightseeingFeed.appendChild(card);
+  });
+}
+function showImageModal(photo) {
+  const modal = document.getElementById("image-modal");
+  const modalImage = document.getElementById("modal-image");
+  const photographerName = document.getElementById("photographer-name");
+  const imageDescription = document.querySelector(".image-description");
+
+  modalImage.src = photo.src.large;
+  modalImage.alt = photo.alt || "Sightseeing Image";
+  photographerName.textContent = photo.photographer || "Unknown Photographer";
+  imageDescription.textContent = photo.alt || "No description available.";
+
+  // Generate social media share links
+  const facebookShare = document.getElementById("share-facebook");
+  const twitterShare = document.getElementById("share-twitter");
+
+  const shareUrl = encodeURIComponent(photo.src.large);
+  const shareText = encodeURIComponent(photo.alt || "Check out this amazing spot!");
+
+  facebookShare.href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
+  twitterShare.href = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareText}`;
+
+  modal.classList.remove("hidden");
+}

@@ -63,6 +63,37 @@
     </div>
   </div>
   
+  <!-- Example of a photo card -->
+<div class="photo-card">
+    <img src="photo-url.jpg" alt="Image description" class="sightseeing-image">
+    <button class="favourite-button" aria-label="Add to Favourites">❤️</button>
+  </div>
+  
+  <!-- Favourites Section -->
+  <div id="favourites-modal" class="hidden">
+    <div class="modal-content">
+      <button id="close-favourites-button" aria-label="Close">&times;</button>
+      <h2>My Favourites</h2>
+      <div id="favourites-list"></div>
+    </div>
+  </div>
+  
+  <div id="image-modal" class="hidden">
+    <div class="modal-content">
+      <button id="close-modal-button" aria-label="Close">&times;</button>
+      <div id="modal-image-container">
+        <img id="modal-image" src="" alt="Image preview">
+      </div>
+      <div class="modal-info">
+        <p class="image-description">No description available.</p>
+        <p class="photographer-info">Photographer: <span id="photographer-name">Unknown</span></p>
+        <div class="share-buttons">
+          <a id="share-facebook" href="#" target="_blank">Share on Facebook</a>
+          <a id="share-twitter" href="#" target="_blank">Share on Twitter</a>
+        </div>
+      </div>
+    </div>
+  </div>
   
   
     </body>
