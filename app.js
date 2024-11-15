@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Array to store favourite photos
 let favourites = [];
 
-// Add to favourites
+// Function to add photo to favourites
 function addToFavourites(photo) {
   if (!favourites.some(fav => fav.src.medium === photo.src.medium)) {
     favourites.push(photo);
@@ -149,11 +149,12 @@ function addToFavourites(photo) {
   }
 }
 
-// Display favourites
+// Function to display favourites modal with favourite photos
 function showFavourites() {
   const favouritesList = document.getElementById("favourites-list");
   favouritesList.innerHTML = ""; // Clear existing content
 
+  // Populate favourites list with images
   favourites.forEach(photo => {
     const img = document.createElement("img");
     img.src = photo.src.medium;
@@ -161,6 +162,7 @@ function showFavourites() {
     favouritesList.appendChild(img);
   });
 
+  // Show the favourites modal
   document.getElementById("favourites-modal").classList.remove("hidden");
 }
 
@@ -169,49 +171,5 @@ document.getElementById("close-favourites-button").addEventListener("click", () 
   document.getElementById("favourites-modal").classList.add("hidden");
 });
 
-// Add click event to heart buttons
-function displayPhotos(photos) {
-  const sightseeingFeed = document.getElementById("sightseeing-feed");
-
-  photos.forEach(photo => {
-    const card = document.createElement("div");
-    card.className = "photo-card";
-
-    const img = document.createElement("img");
-    img.src = photo.src.medium;
-    img.alt = photo.alt || "Sightseeing Image";
-    img.classList.add("sightseeing-image");
-
-    const favButton = document.createElement("button");
-    favButton.className = "favourite-button";
-    favButton.textContent = "❤️";
-    favButton.addEventListener("click", () => addToFavourites(photo));
-
-    card.appendChild(img);
-    card.appendChild(favButton);
-    sightseeingFeed.appendChild(card);
-  });
-}
-function showImageModal(photo) {
-  const modal = document.getElementById("image-modal");
-  const modalImage = document.getElementById("modal-image");
-  const photographerName = document.getElementById("photographer-name");
-  const imageDescription = document.querySelector(".image-description");
-
-  modalImage.src = photo.src.large;
-  modalImage.alt = photo.alt || "Sightseeing Image";
-  photographerName.textContent = photo.photographer || "Unknown Photographer";
-  imageDescription.textContent = photo.alt || "No description available.";
-
-  // Generate social media share links
-  const facebookShare = document.getElementById("share-facebook");
-  const twitterShare = document.getElementById("share-twitter");
-
-  const shareUrl = encodeURIComponent(photo.src.large);
-  const shareText = encodeURIComponent(photo.alt || "Check out this amazing spot!");
-
-  facebookShare.href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
-  twitterShare.href = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareText}`;
-
-  modal.classList.remove("hidden");
-}
+// Add click event to show favourites
+document.getElementById("show-favourites-button").addEventListener("click", showFavourites);

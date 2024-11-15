@@ -263,22 +263,8 @@ body {
     background-color: #FF4511;
   }
   
-  .favourite-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-  
-  .favourite-button:hover {
-    transform: scale(1.2);
-  }
-  
-  #favourites-modal {
+/* General Modal Style */
+#favourites-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -291,22 +277,46 @@ body {
     z-index: 100;
   }
   
-  #favourites-list img {
-    max-width: 200px;
-    margin: 10px;
-  }
-  .share-buttons a {
-    display: inline-block;
-    margin: 10px;
-    padding: 8px 15px;
-    font-size: 1rem;
-    text-decoration: none;
-    color: #fff;
-    background-color: #FF5733;
-    border-radius: 5px;
+  .modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
-  .share-buttons a:hover {
-    background-color: #FF4511;
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #FF5733;
+  }
+  
+  .favourites-title {
+    font-family: 'Barriecito', cursive;
+    color: #FF5733;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  
+  .favourites-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .favourites-list img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   

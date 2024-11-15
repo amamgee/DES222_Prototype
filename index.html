@@ -69,14 +69,17 @@
     <button class="favourite-button" aria-label="Add to Favourites">❤️</button>
   </div>
   
-  <!-- Favourites Section -->
-  <div id="favourites-modal" class="hidden">
+<!-- Favourites Modal -->
+<div id="favourites-modal" class="hidden">
     <div class="modal-content">
-      <button id="close-favourites-button" aria-label="Close">&times;</button>
-      <h2>My Favourites</h2>
-      <div id="favourites-list"></div>
+      <button id="close-favourites-button" aria-label="Close" class="close-button">✕</button>
+      <h2 class="favourites-title">My Favourites</h2>
+      <div id="favourites-list" class="favourites-list">
+        <!-- Favourited images will appear here -->
+      </div>
     </div>
   </div>
+  
   
   <div id="image-modal" class="hidden">
     <div class="modal-content">
