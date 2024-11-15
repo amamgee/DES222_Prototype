@@ -184,3 +184,21 @@ function addToFavourites(photo) {
       alert("Already in Favourites!");
   }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  const favouritesList = document.getElementById("favourites-list");
+  const favourites = JSON.parse(localStorage.getItem("favourites") || "[]");
+  
+  favouritesList.innerHTML = ""; // Clear existing content
+
+  if(favourites.length) {
+      favourites.forEach(photo => {
+          const img = document.createElement("img");
+          img.src = photo.src;
+          img.alt = photo.alt || "Favourite Image";
+          favouritesList.appendChild(img);
+      });
+  } else {
+      favouritesList.innerHTML = "<p>No favourites added yet.</p>";
+  }
+});
