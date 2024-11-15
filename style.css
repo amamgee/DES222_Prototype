@@ -31,14 +31,14 @@ body {
 }
 
 .splash-icon svg {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     margin-bottom: 1rem;
 }
 
 #splash-screen h1 {
     font-family: 'Barriecito', cursive;
-    font-size: 2rem;
+    font-size: 3rem;
     color: #FF5733;
 }
 
