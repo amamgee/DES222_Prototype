@@ -99,7 +99,7 @@ function closeModal() {
   modal.classList.add('hidden');
 }
 
-// Attach event listener to the "X" button once DOM is loaded
+// Attach event listener to the "X" button
 document.addEventListener('DOMContentLoaded', () => {
   const closeModalButton = document.getElementById('close-modal-button');
   closeModalButton.addEventListener('click', closeModal);
