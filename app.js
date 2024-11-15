@@ -84,7 +84,7 @@ function showImageModal(photo) {
   const modalImage = document.getElementById('modal-image');
   const photographerName = document.getElementById('photographer-name');
   const imageDescription = document.querySelector('.image-description');
-  const directionsLink = document.getElementById('directions-link'); // Reference to the "Get Directions" link
+  const directionsLink = document.getElementById('directions-link');
 
   // Set the image, description, and photographer info in the modal
   modalImage.src = photo.src.large;
@@ -92,8 +92,8 @@ function showImageModal(photo) {
   photographerName.textContent = photo.photographer || 'Unknown Photographer';
   imageDescription.textContent = photo.alt || 'No description available.';
 
-  // Use the image's alt text or a general fallback for Google Maps search
-  const searchTerm = photo.alt || "famous landmark";
+  // Extract keywords from the photo.alt (description) to use in Google Maps search
+  const searchTerm = extractLocationKeywords(photo.alt);
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(searchTerm)}`;
   directionsLink.href = googleMapsUrl;
   directionsLink.classList.remove('hidden'); // Show the "Get Directions" link
@@ -101,10 +101,20 @@ function showImageModal(photo) {
   modal.classList.remove('hidden'); // Display the modal
 }
 
-// Event listener to close the modal when clicking the "X" button
-document.getElementById('close-modal-button').addEventListener('click', () => {
-  document.getElementById('image-modal').classList.add('hidden');
-});
+// Helper function to extract keywords for location-based search
+function extractLocationKeywords(description) {
+  if (!description) {
+    return "famous landmark"; // Fallback if no description is available
+  }
+
+  // Example approach: Define common keywords or fallback if needed
+  const locationKeywords = ["Rome", "Paris", "Eiffel Tower", "Colosseum", "St. Peter's Basilica", "Amalfi Coast"];
+  const foundKeywords = locationKeywords.filter(keyword => description.includes(keyword));
+
+  // Join found keywords or default to the entire description if no specific keyword is found
+  return foundKeywords.length > 0 ? foundKeywords.join(", ") : description;
+}
+
 
 
 // Function to close the modal
