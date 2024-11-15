@@ -46,17 +46,17 @@ document.addEventListener('DOMContentLoaded', () => {
 // Function to fetch photos from Pexels API
 function fetchPhotosFromPexels(query, page) {
   const apiKey = 'RE9OiIOFqVbNwm4KTxrIiRH7AJDgOar2Vgan24sSj8GK0ruHJfb4IMVk';
-  const perPage = 30; // Fetch 30 images per request
+  const perPage = 50; // Fetch 50 images per request
   const url = `https://api.pexels.com/v1/search?query=${query}&per_page=${perPage}&page=${page}`;
 
-  console.log(`Fetching photos from Pexels for ${query} - Page ${page}`);
-  
+  console.log(`Fetching photos from Pexels for ${query} - Page ${page}, ${perPage} per page`);
+
   fetch(url, {
     headers: { Authorization: apiKey }
   })
     .then(response => response.json())
     .then(data => {
-      console.log('Pexels API response:', data);
+      console.log('Pexels API response:', data); // Debugging output
       if (data.photos && data.photos.length > 0) {
         displayPhotos(data.photos);
       } else {
@@ -87,35 +87,3 @@ function handleScroll() {
     fetchPhotosFromPexels(location, page);
   }
 }
-
-  // Show login page after hiding the splash screen
-  setTimeout(() => {
-    document.getElementById('splash-screen').style.display = 'none';
-    document.getElementById('login-page').classList.remove('hidden');
-  }, 2500);
-
-  // Handle the Explore button click
-  document.getElementById('explore-button').addEventListener('click', () => {
-    // Attempt to fetch user's IP location
-    fetch(ipGeolocationUrl)
-      .then(response => response.json())
-      .then(data => {
-        location = data.city || 'Noosa, Australia'; // Fallback to hardcoded location
-        console.log(`Detected location: ${location}`);
-      })
-      .catch(error => {
-        console.error('Error fetching IP location:', error);
-        location = 'Noosa, Australia'; // Use fallback location
-      })
-      .finally(() => {
-        // Transition to the main content
-        document.getElementById('login-page').style.display = 'none';
-        document.getElementById('main-content').classList.remove('hidden');
-        
-        // Load initial photos
-        fetchPhotosFromPexels(location, page);
-        
-        // Set up infinite scroll listener
-        window.addEventListener('scroll', handleScroll);
-      });
-  });
