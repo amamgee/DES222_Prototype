@@ -84,21 +84,27 @@ function showImageModal(photo) {
   const modalImage = document.getElementById('modal-image');
   const photographerName = document.getElementById('photographer-name');
   const imageDescription = document.querySelector('.image-description');
-  const directionsLink = document.getElementById('directions-link'); // Reference to the new link element
+  const directionsLink = document.getElementById('directions-link'); // Reference to the "Get Directions" link
 
-  modalImage.src = photo.src.large; // Display large version of the image
+  // Set the image, description, and photographer info in the modal
+  modalImage.src = photo.src.large;
   modalImage.alt = photo.alt || 'Sightseeing Image';
   photographerName.textContent = photo.photographer || 'Unknown Photographer';
   imageDescription.textContent = photo.alt || 'No description available.';
 
-  // Generate a Google Maps link based on location data (use a default or fallback location if needed)
-  const location = photo.location || "Noosa, Australia"; // Replace with actual location data if available
-  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
-  directionsLink.href = googleMapsUrl; // Set the Google Maps URL in the link element
-  directionsLink.classList.remove('hidden'); // Ensure the link is visible
+  // Use the image's alt text or a general fallback for Google Maps search
+  const searchTerm = photo.alt || "famous landmark";
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(searchTerm)}`;
+  directionsLink.href = googleMapsUrl;
+  directionsLink.classList.remove('hidden'); // Show the "Get Directions" link
 
-  modal.classList.remove('hidden');
+  modal.classList.remove('hidden'); // Display the modal
 }
+
+// Event listener to close the modal when clicking the "X" button
+document.getElementById('close-modal-button').addEventListener('click', () => {
+  document.getElementById('image-modal').classList.add('hidden');
+});
 
 
 // Function to close the modal
