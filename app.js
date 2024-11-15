@@ -173,3 +173,14 @@ document.getElementById("close-favourites-button").addEventListener("click", () 
 
 // Add click event to show favourites
 document.getElementById("show-favourites-button").addEventListener("click", showFavourites);
+
+function addToFavourites(photo) {
+  let favourites = JSON.parse(localStorage.getItem("favourites") || "[]");
+  if (!favourites.some(fav => fav.src === photo.src.medium)) {
+      favourites.push({ src: photo.src.medium, alt: photo.alt });
+      localStorage.setItem("favourites", JSON.stringify(favourites));
+      alert("Added to Favourites!");
+  } else {
+      alert("Already in Favourites!");
+  }
+}

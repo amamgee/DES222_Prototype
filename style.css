@@ -320,3 +320,43 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
+  .favourites-page {
+    padding: 20px;
+    text-align: center;
+}
+
+.favourites-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.favourites-list img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.app-header {
+    background: #FF5733;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.app-header h1 {
+    margin: 0;
+}
+
+.app-header nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.app-header nav a.active {
+    font-weight: bold;
+}
