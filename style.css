@@ -1,4 +1,4 @@
-/* Global Styles */
+/* General Style */
 * {
     margin: 0;
     padding: 0;
@@ -40,40 +40,44 @@
     font-size: 2.5rem;
   }
   
-  /* Main Content */
-  #main-content {
+  /* Login Page */
+  #login-page {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: url('ennio-berti-WErW8WfpPOE-unsplash.jpg') no-repeat center center/cover;
+    color: #ffffff;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 100%;
-    padding: 1rem;
-    background-color: #7f00ff;
+    text-align: center;
   }
   
-  /* Sightseeing Feed */
-  .sightseeing-feed {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-    grid-gap: 1rem;
-    width: 100%;
-    max-width: 1200px;
-    padding: 1rem;
-    margin: 0 auto;
-    padding-bottom: 100px; /* Additional padding for scroll testing */
+  #login-page h1.login-title {
+    font-family: 'Barriecito', cursive;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
   }
   
-  
-  /* Image styling */
-  .sightseeing-image {
-    width: 100%;
-    height: 350px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s;
-    object-fit: cover;
+  #login-page p.login-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
   }
   
-  .sightseeing-image:hover {
-    transform: scale(1.05);
+  #login-page button#explore-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.2rem;
+    color: #7f00ff;
+    background-color: #ffffff;
+    font-family: 'Barriecito', cursive;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  #login-page button#explore-button:hover {
+    background-color: #f2f2f2;
   }
   
