@@ -27,7 +27,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 10; /* Ensure splash screen appears on top */
+    z-index: 10;
   }
   
   .splash-icon svg {
@@ -53,24 +53,27 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    z-index: 5; /* Ensure it appears above main content */
+    z-index: 5;
+    padding: 0 20px;
   }
   
   #login-page h1.login-title {
     font-family: 'Barriecito', cursive;
     font-size: 3rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
   
   #login-page p.login-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    margin-bottom: auto;
   }
   
   #login-page button#explore-button {
+    margin-top: auto;
+    margin-bottom: 2rem;
     padding: 0.8rem 1.5rem;
     font-size: 1.2rem;
-    color: #7f00ff;
+    color: #000000;
     background-color: #ffffff;
     font-family: 'Barriecito', cursive;
     border: none;
@@ -81,10 +84,5 @@
   
   #login-page button#explore-button:hover {
     background-color: #f2f2f2;
-  }
-  
-  /* Main Content */
-  #main-content {
-    padding: 1rem;
   }
   
