@@ -4,9 +4,9 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
-  }
+}
   
-  body {
+body {
     background-color: #FAF9F6;
     color: #FF5733;
     display: flex;
@@ -14,10 +14,10 @@
     align-items: center;
     min-height: 100vh;
     overflow-x: hidden;
-  }
-  
-  /* Splash Screen */
-  #splash-screen {
+}
+
+/* Splash Screen */
+#splash-screen {
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -28,22 +28,22 @@
     justify-content: center;
     align-items: center;
     z-index: 10;
-  }
-  
-  .splash-icon svg {
+}
+
+.splash-icon svg {
     width: 60px;
     height: 60px;
     margin-bottom: 1rem;
-  }
-  
-  #splash-screen h1 {
+}
+
+#splash-screen h1 {
     font-family: 'Barriecito', cursive;
     font-size: 2rem;
     color: #FF5733;
-  }
-  
-  /* Login Page */
-  #login-page {
+}
+
+/* Login Page */
+#login-page {
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -56,22 +56,22 @@
     color: #ffffff;
     padding: 0 20px;
     z-index: 5;
-  }
-  
-  #login-page h1.login-title {
+}
+
+#login-page h1.login-title {
     font-family: 'Barriecito', cursive;
     font-size: 3rem;
-    color: #FF5733;
+    color: #ffffff;
     margin-bottom: 0.5rem;
-  }
-  
-  #login-page p.login-subtitle {
+}
+
+#login-page p.login-subtitle {
     font-size: 1.5rem;
-    color: #FF5733;
+    color: #ffffff;
     margin: 1rem 0 2rem;
-  }
-  
-  #login-page button#explore-button {
+}
+
+#login-page button#explore-button {
     padding: 0.8rem 1.5rem;
     font-size: 1.2rem;
     color: #FF5733;
@@ -81,54 +81,60 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  #login-page button#explore-button:hover {
+}
+
+#login-page button#explore-button:hover {
     background-color: #f2f2f2;
-  }
-  
-  /* Main Content */
-  #main-content {
+}
+
+/* Main Content */
+#main-content {
     width: 100%;
     padding: 1rem;
     max-width: 1200px;
     text-align: center;
     background-color: #FAF9F6;
-  }
-  
-  /* Header and Location Bar */
-  #main-header {
+}
+
+/* Header and Location Bar */
+#main-header {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 1rem;
-  }
-  
-  .app-title {
+}
+
+.app-title {
     font-family: 'Barriecito', cursive;
     font-size: 2rem;
     color: #FF5733;
     margin-bottom: 0.5rem;
-  }
-  
-  .location-bar {
+}
+
+.location-bar {
     background-color: #ffffff;
     color: #FF5733;
     padding: 0.5rem 1rem;
     border-radius: 5px;
     font-family: 'Barriecito', cursive;
     font-weight: bold;
-  }
-  
-  /* Sightseeing Feed */
-  .sightseeing-feed {
+}
+
+/* Ensure user location text also uses Barriecito font */
+.location-bar #user-location {
+    font-family: 'Barriecito', cursive;
+    font-weight: bold;
+}
+
+/* Sightseeing Feed */
+.sightseeing-feed {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: center;
-  }
-  
-  .sightseeing-image {
+}
+
+.sightseeing-image {
     width: 100%;
     max-width: 270px;
     height: auto;
@@ -136,14 +142,14 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s;
     object-fit: cover;
-  }
-  
-  .sightseeing-image:hover {
+}
+
+.sightseeing-image:hover {
     transform: scale(1.05);
-  }
-  
-  /* Load More Button */
-  #load-more-button {
+}
+
+/* Load More Button */
+#load-more-button {
     margin: 2rem auto;
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
@@ -155,9 +161,8 @@
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s;
-  }
-  
-  #load-more-button:hover {
+}
+
+#load-more-button:hover {
     background-color: #f2f2f2;
-  }
-  
+}
