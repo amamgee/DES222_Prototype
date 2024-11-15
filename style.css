@@ -5,7 +5,7 @@
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
-  
+
 body {
     background-color: #FAF9F6;
     color: #FF5733;
@@ -120,7 +120,6 @@ body {
     font-weight: bold;
 }
 
-/* Ensure user location text also uses Barriecito font */
 .location-bar #user-location {
     font-family: 'Barriecito', cursive;
     font-weight: bold;
@@ -165,4 +164,11 @@ body {
 
 #load-more-button:hover {
     background-color: #f2f2f2;
+}
+
+/* Mobile View: Adjust Image Size */
+@media (max-width: 768px) {
+    .sightseeing-image {
+        max-width: 90%; /* Adjust image width on mobile */
+    }
 }
