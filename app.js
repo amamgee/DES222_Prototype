@@ -35,7 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function fetchPhotosFromPexels(query, page) {
-  const apiKey = process.env.PEXELS_API_KEY;
+  require('dotenv').config();
+  const apiKey = process.env.PEXELS_API_KEY;  
   const perPage = 50;
   const url = `https://api.pexels.com/v1/search?query=${query}&per_page=${perPage}&page=${page}`;
 
